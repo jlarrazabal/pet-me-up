@@ -7,7 +7,7 @@ const Service require('./Service');
 
 const appointmentSchema = new Schema({
   date: {
-    type: Integer,
+    type: Date,
     required: true,
   },
   time: {
@@ -15,7 +15,10 @@ const appointmentSchema = new Schema({
     required: true,
   },
   services: [Service],
-  pet: Pet,
+  petID: {
+    type: Schema.Types.ObjectId,
+    ref: 'Pet'
+  },
   paymentID: {
     type: String,
     required: false,

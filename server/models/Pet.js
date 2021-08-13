@@ -3,20 +3,18 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const User = require('./User');
 const Appointment require('./Appointment');
+const PetType require('./PetType');
 
 const petSchema = new Schema({
-  name: {
+  petName: {
     type: String,
     required: true
   },
   birthday: {
-    type: Integer,
+    type: Date,
     required: true
   },
-  pet: {
-    type: String,
-    required: true
-  },
+  petType: PetType,
   breed: {
     type: String,
     required: true
@@ -29,8 +27,14 @@ const petSchema = new Schema({
     type: Float,
     required: true
   },
-  owner: User,
-  appointments: [Appointment]
+  ownerID: {
+    type: Schema.Types.ObjectId,
+      ref: 'User'
+    },
+  appointmentIDs: [{
+    type: Schema.Types.ObjectId,
+      ref: 'Appointment'
+    }]
 });
 
 const Pet = mongoose.model('Pet', petSchema);

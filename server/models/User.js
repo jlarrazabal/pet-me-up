@@ -25,7 +25,10 @@ const userSchema = new Schema({
     required: true,
     minlength: 5
   },
-  pets: [Pet]
+  petIDs: [{
+    type: Schema.Types.ObjectId,
+      ref: 'Pet'
+    }]
 });
 
 // set up pre-save middleware to create password

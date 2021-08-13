@@ -6,19 +6,18 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    pets: [Pet]
+    petIDs: [String]
   }
 
   type Pet {
     _id: ID!
-    name: String!
-    birthday: Int!
-    pet: String!
+    petName: String!
+    birthday: String!
+    petType: PetType!
     breed: String!
     gender: String!
     weight: Float!
-    owner: User
-    appointments: [Appointment]
+    ownerID: String!
   }
 
   type Service {
@@ -30,24 +29,21 @@ const typeDefs = gql`
 
   type Appointment {
     _id: ID!
-    date: Int!
+    date: String!
     time: Int!
-    services: [Service]
-    pet: Pet
+    services: [Service]!
+    petID: String!
     paymentID: String
+  }
+
+  type PetType {
+    _id: ID!
+    petTypeName: String!
   }
 
   type Auth {
     token: ID
     user: User
-  }
-
-  type Query {
-    getUser: User
-    getPet(petID: ID!): Pet
-    getAppointment(appointmentID: ID!): Appointment
-    getAllPetAppointments(petID: ID!):[Appointment]
-    getServices: [Service]
   }
 
   input LoginInput {
@@ -63,9 +59,9 @@ const typeDefs = gql`
   }
 
   input RegisterPetInput {
-    name: String!
+    petName: String!
     birthday: Int!
-    pet: String!
+    petType: PetType!
     breed: String!
     gender: String!
     weight: Float!
@@ -75,16 +71,25 @@ const typeDefs = gql`
     date: Int!
     time: Int!
     services: [Service]!
-    petID: ID!
+    petID: String!
+  }
+
+  type Query {
+    getUser: User
+    getPet(petID: ID!): Pet
+    getAppointment(appointmentID: ID!): Appointment
+    getAllPetAppointments(petID: ID!):[Appointment]
+    getServices: [Service]
+    getPetTypes: [PetType]
   }
 
   type Mutation {
     addUser(input: RegisterUserInput): Auth
     loginUser(input: LoginInput): Auth
-    addPet(input: RegisterPetInput): User
-    createAppointment(input: AppointmentInput): Pet
-    deleteAppointment(appointmentID: ID!): Pet
-    updateAppointment(appointmentID: ID!): Pet
+    addPet(input: RegisterPetInput): Pet
+    createAppointment(input: AppointmentInput): Appointment
+    deleteAppointment(appointmentID: ID!): Appointment
+    updateAppointment(appointmentID: ID!): Appointment
   }
 `;
 
