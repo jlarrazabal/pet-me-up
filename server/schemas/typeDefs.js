@@ -1,37 +1,40 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
-    _id: ID
-    name: String
-  }
-
-  type Product {
-    _id: ID
-    name: String
-    description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
-
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
-
   type User {
-    _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    orders: [Order]
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    pets: [Pet]
   }
 
-  type Checkout {
-    session: ID
+  type Pet {
+    _id: ID!
+    name: String!
+    birthday: Int!
+    pet: String!
+    breed: String!
+    gender: String!
+    weight: Float!
+    owner: User
+    appointments: [Appointment]
+  }
+
+  type Service {
+    _id: ID!
+    name: String!
+    price: Float!
+    description: String!
+  }
+
+  type Appointment {
+    _id: ID!
+    date: Int!
+    time: Int!
+    services: [Service]
+    pet: Pet
+    paymentID: String
   }
 
   type Auth {
@@ -40,20 +43,47 @@ const typeDefs = gql`
   }
 
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
-    user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    getUser: User
+    getPet(petID: ID!): Pet
+    getAppointment(appointmentID: ID!): Appointment
+    getAllPetAppointments(petID: ID!):[Appointment]
+    getServices: [Service]
+  }
+
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+  input RegisterUserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+  }
+
+  input RegisterPetInput {
+    name: String!
+    birthday: Int!
+    pet: String!
+    breed: String!
+    gender: String!
+    weight: Float!
+  }
+
+  input AppointmentInput {
+    date: Int!
+    time: Int!
+    services: [Service]!
+    petID: ID!
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
-    login(email: String!, password: String!): Auth
+    addUser(input: RegisterUserInput): Auth
+    loginUser(input: LoginInput): Auth
+    addPet(input: RegisterPetInput): User
+    createAppointment(input: AppointmentInput): Pet
+    deleteAppointment(appointmentID: ID!): Pet
   }
 `;
 
