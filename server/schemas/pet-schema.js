@@ -1,10 +1,10 @@
-const CustomerSchema = require('../schemas/customer-schema');
+const UserSchema = require('./user-schema');
 const ServiceSchema = require('../schemas/service-schema');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const PetSchema = new Schema({
     owner: {
-      type: CustomerSchema,
+      type: UserSchema,
       required: true
     },
     name: {

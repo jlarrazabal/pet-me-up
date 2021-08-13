@@ -1,5 +1,5 @@
-const Customer = require('./customer');
+const User = require('./user');
 const Pet = require('./pet');
 const Service = require('./service');
 
-module.exports = { Customer, Pet, Service };
+module.exports = { User, Pet, Service };
