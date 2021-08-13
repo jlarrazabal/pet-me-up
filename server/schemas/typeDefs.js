@@ -84,6 +84,7 @@ const typeDefs = gql`
     addPet(input: RegisterPetInput): User
     createAppointment(input: AppointmentInput): Pet
     deleteAppointment(appointmentID: ID!): Pet
+    updateAppointment(appointmentID: ID!): Pet
   }
 `;
 
