@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 // Import Redux store from the file we created in /utils
 import store from './store';
 
-export default function CarProvider(props) {
+export default function PetProvider(props) {
   // Return the provider component provided by react-redux
   return <Provider store={store} {...props} />;
 }

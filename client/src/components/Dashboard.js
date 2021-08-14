@@ -3,20 +3,14 @@ import React, { useState } from 'react';
 
 export default function Dashboard() {
 
-
 // Above the petList comes from the global state, just adding some format
 return (
     <div className="container col-12" >
-
     <div class="container col-6" id="userProfile">
-    {/* {Get the user somehow => { */}
-        return (
         <div class="container-fluid">
          <h1>{`${user.firstName} ${user.lastName}`} </h1>
          <h3>{user.email}</h3>
          </div>
-        )
-    })}
     </div>
     <div class="container col-6" id="petList">
     {petList.map((pet) => {
