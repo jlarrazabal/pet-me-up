@@ -6,7 +6,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
     getUser: async (parent, args, context) => {
-      console.log("User Information",context.user);
+      console.log("User Information", context.user);
       return await User.findById(context.user._id);
     },
     getPet: async (parent, {petID}) => {
@@ -26,6 +26,9 @@ const resolvers = {
     },
     getPetTypes: async (parent, args) => {
       return await PetType.find({});
+    },
+    getAllAppointmentsByDate: async (parent, {date}) => {
+      return await Appointment.find({date: date});
     }
   },
   Mutation: {
@@ -58,7 +61,7 @@ const resolvers = {
       return await Appointment.deleteOne({_id: appointmentID});
     },
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
-      retunr await Appointment.findbyIdAndUpdate({_id: appointmentID, {$set: {paymentID: paymentID}}});
+      return await Appointment.findbyIdAndUpdate({_id: appointmentID}, {$set: {paymentID: paymentID}});
     }
   }
 };
