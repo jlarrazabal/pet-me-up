@@ -8,7 +8,7 @@ const serviceSchema = new Schema({
     required: true,
   },
   price: {
-    type: Float,
+    type: Number,
     required: true,
   },
   description: {
