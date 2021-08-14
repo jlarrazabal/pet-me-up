@@ -12,9 +12,6 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Appointment from './components/Appointment';
-import Pethistory from './components/Pethistory';
-import Footer from './components/Footer';
-
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -40,15 +37,12 @@ function App() {
             <Nav />
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/appointment" component={Appointment}/>
-              <Route exact path="/pethistory" component={Pethistory}/>
-              <Route path="/pethistory/:petID" component={Pethistory} />
+              <Route exact path="/Login/" component={Login} />
+              <Route exact path="/Register/" component={Register} />
+              <Route exact path="/Dashboard/" component={Dashboard} />
+              <Route exact path="/Appointment/" component={Appointment} />
               <Route component={Home} />
             </Switch>
-            <Footer/>
           </StoreProvider>
         </div>
       </Router>
