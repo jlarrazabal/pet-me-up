@@ -1,16 +1,16 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
-import { useQuery } from '../utils/queries';
-import { QUERY_GETPETAPP } from '../../utils/queries';
-import { QUERY_GETPET } from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import { QUERY_GETPETAPP } from '../utils/queries';
+import { QUERY_GETPET } from '../utils/queries';
 import { useParams } from "react-router-dom";
 
-export default Pethistory = () => {
+export default function  Pethistory() {
 //Getting the id from the params in the URL
 const { petID } = useParams();
 
 //Importing the appointment query using the pet id
-const { loading, appData} = useQuery(QUERY_GETPETAPP, {variable : {petID: petID}})
+const { loading1, appData} = useQuery(QUERY_GETPETAPP, {variable : {petID: petID}})
 const appointmentsList = appData?.appointmentsList || [];
 
 //Importing the pet query using the pet id
@@ -20,8 +20,7 @@ const pet = petData?.pet || [];
 let history = useHistory();
 
 //Go to the book appointment page, with the pet id inserted in the params
-const makeApp = (event, id) => {
-    setPetID(id);
+const makeApp = () => {
     history.push(`/appointment/${petID}`);
 }
 
@@ -44,7 +43,7 @@ return (
             return (
             <div> 
              <h1>Your pet has never visited the vet :(</h1>
-             <button className="btn btn-primary"  onClick={(e) => makeApp(e, petID)}>{`Make a new appointment for ${pet.petName}`}</button>  
+             <button className="btn btn-primary"  onClick={() => makeApp()}>{`Make a new appointment for ${pet.petName}`}</button>  
             </div>
             )}
         else {
@@ -53,7 +52,7 @@ return (
             <h1>{appointment.date}</h1>
             {appointment.services.map((service) => {
             return <h3>{service.name}</h3> })}
-            <button className="btn btn-primary"  onClick={(e) => makeApp(e, petID)}>{`Make a new appointment for ${pet.petName}`}</button>
+            <button className="btn btn-primary"  onClick={() => makeApp()}>{`Make a new appointment for ${pet.petName}`}</button>
             </div>
             )}
      })}

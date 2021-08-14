@@ -1,4 +1,4 @@
-import { REGISTER_PET, ADD_USER, GET_PROFILE, GET_HISTORY } from '../utils/actions';
+import { REGISTER_PET, ADD_USER, GET_PROFILE, GET_HISTORY } from './actions';
 
 // Notice we moved the initial state object from our CarComponent to the reducer itself
 // const initalState = {
