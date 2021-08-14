@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const User = require('./User');
-const Appointment require('./Appointment');
-const PetType require('./PetType');
+const Appointment = require('./Appointment');
+const PetType = require('./PetType');
 
 const petSchema = new Schema({
   petName: {
@@ -27,11 +27,11 @@ const petSchema = new Schema({
     type: Float,
     required: true
   },
-  ownerID: {
-    type: Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
+  owner: User, 
+  //   type: Schema.Types.ObjectId,
+  //     ref: 'User',
+  //     required: true,
+  //   },
   appointmentIDs: [{
     type: Schema.Types.ObjectId,
       ref: 'Appointment'
