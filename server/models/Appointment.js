@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-// const Appointment = require ('./Appointment');
-const Pet = require ('./Pet');
-const Service = require ('./Service');
+const Appointment = require('./Appointment');
+const Pet = require('./Pet');
+const Service = require('./Service');
 
 const appointmentSchema = new Schema({
   date: {
