@@ -1,37 +1,44 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
-    _id: ID
-    name: String
-  }
-
-  type Product {
-    _id: ID
-    name: String
-    description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
-
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
-
   type User {
-    _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    orders: [Order]
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+    petIDs: [String]
   }
 
-  type Checkout {
-    session: ID
+  type Pet {
+    _id: ID!
+    petName: String!
+    birthday: String!
+    petType: PetType!
+    breed: String!
+    gender: String!
+    weight: Float!
+    ownerID: String!
+  }
+
+  type Service {
+    _id: ID!
+    name: String!
+    price: Float!
+    description: String!
+  }
+
+  type Appointment {
+    _id: ID!
+    date: String!
+    time: Int!
+    services: [Service]!
+    petID: String!
+    paymentID: String
+  }
+
+  type PetType {
+    _id: ID!
+    petTypeName: String!
   }
 
   type Auth {
@@ -39,21 +46,51 @@ const typeDefs = gql`
     user: User
   }
 
+  input LoginInput {
+    email: String!
+    password: String!
+  }
+
+  input RegisterUserInput {
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+  }
+
+  input RegisterPetInput {
+    petName: String!
+    birthday: Int!
+    petType: PetType!
+    breed: String!
+    gender: String!
+    weight: Float!
+  }
+
+  input AppointmentInput {
+    date: String!
+    time: Int!
+    services: [Service]!
+    petID: String!
+  }
+
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
-    user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    getUser: User
+    getPet(petID: ID!): Pet
+    getPets(ownerID: ID!): [Pet]
+    getAppointment(appointmentID: ID!): Appointment
+    getAllPetAppointments(petID: ID!):[Appointment]
+    getServices: [Service]
+    getPetTypes: [PetType]
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
-    login(email: String!, password: String!): Auth
+    addUser(input: RegisterUserInput): Auth
+    loginUser(input: LoginInput): Auth
+    addPet(input: RegisterPetInput): Pet
+    createAppointment(input: AppointmentInput): Appointment
+    deleteAppointment(appointmentID: ID!): Appointment
+    updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
   }
 `;
 
