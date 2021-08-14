@@ -66,3 +66,15 @@ query getServices ($date: String!) {
    }
 }
 `;
+export const QUERY_GETAPPOINTMENTBYID = gql `
+query getAppointment ($getAppointment: ID!) {
+  getAppointment (getAppointment: $appointmentID) {
+    _id
+    date
+    time
+    services
+    petID
+    paymentID
+   }
+}
+`
