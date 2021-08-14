@@ -29,7 +29,8 @@ const petSchema = new Schema({
   },
   ownerID: {
     type: Schema.Types.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      required: true,
     },
   appointmentIDs: [{
     type: Schema.Types.ObjectId,
