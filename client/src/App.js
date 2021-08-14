@@ -45,6 +45,7 @@ function App() {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/appointment" component={Appointment}/>
               <Route exact path="/pethistory" component={Pethistory}/>
+              <Route path="/pethistory/:petID" component={Pethistory} />
               <Route component={Home} />
             </Switch>
             <Footer/>
