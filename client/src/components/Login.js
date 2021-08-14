@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-export function login(){
+export default function login(){
     return(
       <div>
        <form>

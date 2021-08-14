@@ -14,7 +14,7 @@ const appointmentSchema = new Schema({
     type: Number,
     required: true,
   },
-  services: [Service],
+  services: [Service.schema],
   petID: {
     type: Schema.Types.ObjectId,
     ref: 'Pet'

@@ -1,25 +1,35 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom"
-import { useQuery } from '../utils/queries';
-import { QUERY_GETPETS } from '../../utils/queries';
-import { QUERY_GETUSER } from '../../utils/queries';
-
+import { useHistory } from "react-router-dom";
+import { useQuery } from '@apollo/client';
+import { QUERY_GETPETSBYOWNER } from '../utils/queries';
+import { QUERY_GETUSER } from '../utils/queries';
 
 export default function Dashboard() {
-//Ask to Fulton/Nelio
-const { loading, userData } = useQuery(QUERY_GETUSER);
+let history = useHistory();
+
+//Importing the user query
+const { loading1, userData } = useQuery(QUERY_GETUSER);
 const user = userData?.user || [];
 
-const { loading, petData} = useQuery(QUERY_GETPETS);
-const petList = petData?.user || [];
+const ownerID = user._id;
 
+//Importing all the user's pets using the user ID
+const { loading, petData} = useQuery(QUERY_GETPETSBYOWNER, {variables: {ownerID: ownerID}});
+const petList = petData?.petList || [];
+
+//Seting the petID as a state variable
 const [petID, setPetID] = useState(0);
 
-//Ask to Fulton/Nelio
-const getHistory = (event) => {
-    setPetID(event.target.value);
-    return <Redirect to={this.setState({ redirect: `/pethistory/${petID}`})} />
+//Function to get the user this the pet history, adding the pet ID as a param
+const getHistory = (event, id) => {
+   setPetID(id);
+   history.push( `/pethistory/${petID}`);
+};
+
+//Function to get the user to the appointment page, to book for that specific pet, adding the pet ID as a param
+const makeApp = (event, id) => {
+   setPetID(id);
+   history.push( `/appointment/${petID}`);
 }
 
 return (
@@ -40,7 +50,8 @@ return (
          <h3>{pet.breed}</h3>
          <h3>{pet.weigth}</h3>
          <h3>{pet.gender}</h3>
-         <button className="btn btn-primary" value={pet._id} onClick={getHistory()}>{`See ${pet.petName} history`}</button>
+         <button className="btn btn-primary"  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
+         <button className="btn btn-primary"  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
          </div>
         )
     })}
