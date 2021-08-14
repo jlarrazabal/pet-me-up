@@ -82,6 +82,7 @@ const typeDefs = gql`
     getAllPetAppointments(petID: ID!):[Appointment]
     getServices: [Service]
     getPetTypes: [PetType]
+    getAllAppointmentsByDate: [Appointment]
   }
 
   type Mutation {
