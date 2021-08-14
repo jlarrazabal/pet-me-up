@@ -76,7 +76,7 @@ const typeDefs = gql`
 
   type Query {
     getUser: User
-    getPet(petID: ID!): Pet
+    getPet(petID: [ID]!): [Pet]
     getAppointment(appointmentID: ID!): Appointment
     getAllPetAppointments(petID: ID!):[Appointment]
     getServices: [Service]
