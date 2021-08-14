@@ -68,7 +68,7 @@ const typeDefs = gql`
   }
 
   input AppointmentInput {
-    date: Int!
+    date: String!
     time: Int!
     services: [Service]!
     petID: String!
@@ -77,6 +77,7 @@ const typeDefs = gql`
   type Query {
     getUser: User
     getPet(petID: ID!): Pet
+    getPets(ownerID: ID!): [Pet]
     getAppointment(appointmentID: ID!): Appointment
     getAllPetAppointments(petID: ID!):[Appointment]
     getServices: [Service]
@@ -89,7 +90,7 @@ const typeDefs = gql`
     addPet(input: RegisterPetInput): Pet
     createAppointment(input: AppointmentInput): Appointment
     deleteAppointment(appointmentID: ID!): Appointment
-    updateAppointment(appointmentID: ID!): Appointment
+    updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
   }
 `;
 
