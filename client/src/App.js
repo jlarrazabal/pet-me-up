@@ -47,6 +47,7 @@ function App() {
               <Route exact path="/appointment" component={Appointment}/>
               <Route exact path="/pethistory" component={Pethistory}/>
               <Route path="/pethistory/:petID" component={Pethistory} />
+              <Route path="/appointment-summary/:appointmentID" component={Pethistory} />
               <Route component={Home} />
             </Switch>
             <Footer/>
@@ -57,23 +58,3 @@ function App() {
   );
 }
 export default App;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

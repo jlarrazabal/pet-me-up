@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
-import { Redirect } from "react-router-dom"
-import { useQuery } from '@apollo/client';
-import { QUERY_APPOINTMENTS_BY_DATE, QUERY_GET_SERVICES } from '../utils/queries';
+import { useHistory, useParams } from "react-router-dom";
+import { useQuery, useMutation } from '@apollo/client';
+import { QUERY_APPOINTMENTS_BY_DATE, QUERY_GET_SERVICES, QUERY_GETPET } from '../utils/queries';
+import { CREATE_APPOINTMENT } from '../utils/mutations';
 
 
 export default function Appointment() {
-
-const [date, setDate] = useState("");
+let history = useHistory();
+const {petID} = useParams();
+const [date, setDate] = useState(Date.now());
 const [time, setTime] = useState("");
 const [disableTimeBtn, setDisableTimeBtn] = useState(false);
 const [services, setServices] = useState([]);
 const [disableServiceBtn, setDisableServiceBtn] = useState(false);
 
-const { loading1, appointmentData } = useQuery(QUERY_APPOINTMENTS_BY_DATE);
-const appointments = appointmentData?.appointment || [];
+const { loading1, appointmentData } = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
+  variables: {date: date}
+});
+const appointments = appointmentData?.appointment || []; //Pending to add a validation of the available times for any given date.
 
 const { loading2, servicesData } = useQuery(QUERY_GET_SERVICES);
 const servicesArray = servicesData?.service || [];
 
+const {loading3, petData} = useQuery(QUERY_GETPET, {
+  variables: {petID: petID}
+});
+const pet = petData?.pet || [];
+
+ const [createAppointment, {error}] = useMutation(CREATE_APPOINTMENT);
+
 //Handlers
 const handleDateChange = (e) => {
-  e.preventDefault();
   setDate({value: e.target.value});
 }
 
@@ -31,12 +40,28 @@ const handleTimeChange = (e) => {
   setDisableTimeBtn(true);
 }
 
-const handleBookAppointment = (e) => {
+const handleBookAppointment = async (e) => {
   e.preventDefault();
+  try {
+    const newAppointment = await createAppointment({
+      date: date,
+      time: time,
+      services: services,
+      pet: pet[0]
+    });
+    history.push(`/appointment-summary/${newAppointment._id}`);
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 const handleReset = (e) => {
   e.preventDefault();
+  setDate("");
+  setTime("");
+  setDisableTimeBtn(false);
+  setServices([]);
+  setDisableServiceBtn(false);
 }
 
 const handleServiceChange = (e) => {
