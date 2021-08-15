@@ -12,6 +12,10 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Appointment from './components/Appointment';
+import Pethistory from './components/Pethistory';
+import Footer from './components/Footer';
+import Header from './components/Header';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -33,8 +37,8 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
-            <Nav />
+          {/* <StoreProvider> */}
+            <Header/>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route exact path="/Login/" component={Login} />
@@ -43,7 +47,6 @@ function App() {
               <Route exact path="/Appointment/" component={Appointment} />
               <Route component={Home} />
             </Switch>
-          </StoreProvider>
         </div>
       </Router>
     </ApolloProvider>

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import { useQuery } from '@apollo/client';
-import { QUERY_GETPETSBYOWNER } from '../../utils/queries';
-import { QUERY_GETUSER } from '../../utils/queries';
+import { QUERY_GETPETSBYOWNER } from '../utils/queries';
+import { QUERY_GETUSER } from '../utils/queries';
 
 export default function Dashboard() {
 let history = useHistory();
 
 //Importing the user query
-const { loading, userData } = useQuery(QUERY_GETUSER);
+const { loading1, userData } = useQuery(QUERY_GETUSER);
 const user = userData?.user || [];
 
 const ownerID = user._id;
@@ -22,7 +22,7 @@ const [petID, setPetID] = useState(0);
 
 //Function to get the user this the pet history, adding the pet ID as a param
 const getHistory = (event, id) => {
-    setPetID(id);
+   setPetID(id);
    history.push( `/pethistory/${petID}`);
 };
 
