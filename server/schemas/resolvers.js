@@ -61,7 +61,7 @@ const resolvers = {
       return await Appointment.deleteOne({_id: appointmentID});
     },
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
-      return await Appointment.findbyIdAndUpdate({_id: appointmentID}, {$set: {paymentID: paymentID}});
+      return await Appointment.findbyIdAndUpdate({_id: appointmentID, $set: {paymentID: paymentID}});
     }
   }
 };

@@ -50,8 +50,6 @@ function App() {
               <Route path="/appointment-summary/:appointmentID" component={Pethistory} />
               <Route component={Home} />
             </Switch>
-            <Footer/>
-          {/* </StoreProvider> */}
         </div>
       </Router>
     </ApolloProvider>
