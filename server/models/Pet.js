@@ -24,7 +24,7 @@ const petSchema = new Schema({
     required: true
   },
   weight: {
-    type: Number,
+    type: Double,
     required: true
   },
   ownerID: {
