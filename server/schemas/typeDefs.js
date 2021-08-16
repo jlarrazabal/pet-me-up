@@ -6,7 +6,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    petIDs: [String]
+    pets: [Pet]
   }
 
   type Pet {
@@ -17,7 +17,7 @@ const typeDefs = gql`
     breed: String!
     gender: String!
     weight: Float!
-    ownerID: String!
+    owner: Owner!
   }
 
   type Service {
@@ -32,7 +32,7 @@ const typeDefs = gql`
     date: String!
     time: Int!
     services: [Service]!
-    petID: String!
+    pet: Pet!
     paymentID: String
   }
 
