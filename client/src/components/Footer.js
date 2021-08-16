@@ -9,4 +9,3 @@ export default function Footer() {
         </div>
     )
 }
-//Create a tag to connect services so it'll scroll down to the service section when clicked (look that up)
