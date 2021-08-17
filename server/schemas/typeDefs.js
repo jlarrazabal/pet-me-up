@@ -17,7 +17,7 @@ const typeDefs = gql`
     breed: String!
     gender: String!
     weight: Float!
-    owner: Owner!
+    owner: User!
   }
 
   type Service {
@@ -101,7 +101,7 @@ const typeDefs = gql`
     getAllPetAppointments(petID: ID!):[Appointment]
     getServices: [Service]
     getPetTypes: [PetType]
-    getAllAppointmentsByDate: [Appointment]
+    getAllAppointmentsByDate(date: String!): [Appointment]
   }
 
   type Mutation {

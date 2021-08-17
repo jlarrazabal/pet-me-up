@@ -58,8 +58,8 @@ query getServices {
 `;
 
 export const QUERY_APPOINTMENTS_BY_DATE = gql`
-query getServices ($date: String!) {
-  getServices (date: $date) {
+query getAllAppointmentsByDate ($date: String!) {
+  getAllAppointmentsByDate (date: $date) {
     _id
     date: String!
     time: Int!
