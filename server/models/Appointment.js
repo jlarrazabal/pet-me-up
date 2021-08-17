@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const pet = require('./Pet');
-const serviceModel = new require('./Service');
+const PetModel = require('./Pet');
+const ServiceModel = new require('./Service');
 
 
 const appointmentSchema = new Schema({
@@ -14,9 +14,9 @@ const appointmentSchema = new Schema({
     type: Number,
     required: true,
   },
-  services: [serviceModel.schema],
+  services: [ServiceModel.schema],
   pet: {
-    type: pet.schema,
+    type: PetModel.schema,
   },
   paymentID: {
     type: String,
