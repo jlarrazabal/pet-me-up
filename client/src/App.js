@@ -1,24 +1,25 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  createHttpLink,
-} from '@apollo/client';
+// import {
+//   ApolloClient,
+//   InMemoryCache,
+//   ApolloProvider,
+//   createHttpLink,
+// } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Home from './components/Home';
-import Login from './components/Login';
+//import Login from './components/Login';
 import Register from './components/Register';
 import Dashboard from './components/Dashboard';
 import Appointment from './components/Appointment';
 import Pethistory from './components/Pethistory';
-import Footer from './components/Footer';
+//import Footer from './components/Footer';
 import Header from './components/Header';
+import PetRegistration from './components/pet-registration';
 
-const httpLink = createHttpLink({
-  uri: '/graphql',
-});
+// const httpLink = createHttpLink({
+//   uri: '/graphql',
+// });
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -28,20 +29,21 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  cache: new InMemoryCache(),
-});
+// const client = new ApolloClient({
+//   link: authLink.concat(httpLink),
+//   cache: new InMemoryCache(),
+// });
 function App() {
   return (
-    <ApolloProvider client={client}>
+    // <ApolloProvider client={client}>
       <Router>
         <div>
           {/* <StoreProvider> */}
             <Header/>
             <Switch>
               <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
+              {/* <Route exact path="/login" component={Login} /> */}
+              <Route exact path="/pet/registration" component={PetRegistration} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/appointment" component={Appointment}/>
@@ -52,7 +54,7 @@ function App() {
             </Switch>
         </div>
       </Router>
-    </ApolloProvider>
+    // </ApolloProvider>
   );
 }
 export default App;
