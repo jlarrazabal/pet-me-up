@@ -3,7 +3,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_APPOINTMENTS_BY_DATE, QUERY_GET_SERVICES, QUERY_GETPET } from '../utils/queries';
 import { CREATE_APPOINTMENT } from '../utils/mutations';
-
+import './Appointment.css';
 
 export default function Appointment() {
 const timeBtnInitialState = [
@@ -71,18 +71,6 @@ const { loading1, appointmentData } = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
 });
 const appointments = appointmentData?.appointment || [];
 
-if(appointments) {
-  setBlockedTimeBtn(blockedTimeBtn.map(timeSlot => {
-      if(appointments.indexOf(timeSlot.timeBlock)){
-        timeSlot.blocked = true;
-        return timeSlot;
-      } else {
-        return timeSlot;
-      }
-    })
-  );
-}
-
 const { loading2, servicesData } = useQuery(QUERY_GET_SERVICES);
 const servicesArray = servicesData?.service || [];
 
@@ -92,6 +80,22 @@ const {loading3, petData} = useQuery(QUERY_GETPET, {
 const pet = petData?.pet || [];
 
  const [createAppointment, {error}] = useMutation(CREATE_APPOINTMENT);
+
+ if(loading1 || loading2 || loading3) {
+   return <div>...Loading</div>;
+ }
+
+ if(appointments) {
+   setBlockedTimeBtn(blockedTimeBtn.map(timeSlot => {
+       if(appointments.includes(timeSlot.timeBlock)){
+         timeSlot.blocked = true;
+         return timeSlot;
+       } else {
+         return timeSlot;
+       }
+     })
+   );
+ }
 
 //Handlers
 const handleDateChange = (e) => {
@@ -113,6 +117,10 @@ const handleBookAppointment = async (e) => {
       services: services,
       pet: pet[0]
     });
+
+    if(error) {
+      console.log(error);
+    }
     history.push(`/appointment-summary/${newAppointment._id}`);
   } catch (err) {
     console.log(err);
@@ -157,7 +165,7 @@ return (
     <div id="select-service">
     {servicesArray.map((service) => {
       return (
-          <button className="btn btn-lg btn-primary" disabled={disableServiceBtn} onClick={handleServiceChange} value={service}>{service.name}</button>
+          <button className="btn btn-lg btn-primary" disabled={disableServiceBtn} onClick={handleServiceChange} value={service}>{service.name} key={service._id}</button>
       );
     })}
     </div>

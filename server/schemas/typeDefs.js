@@ -41,9 +41,21 @@ const typeDefs = gql`
     petTypeName: String!
   }
 
-  type Auth {
+  type AuthUser {
     token: ID
     user: User
+  }
+
+  type AuthAdmin {
+    token: ID
+    admin: Admin
+  }
+
+  type Admin {
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
   }
 
   input LoginInput {
@@ -74,8 +86,15 @@ const typeDefs = gql`
     petID: String!
   }
 
+  input ServiceInput {
+    name: String!
+    price: Int!
+    description: String!
+  }
+
   type Query {
     getUser: User
+    getAdmin: Admin
     getPet(petID: ID!): Pet
     getPets(ownerID: ID!): [Pet]
     getAppointment(appointmentID: ID!): Appointment
@@ -86,12 +105,14 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(input: RegisterUserInput): Auth
-    loginUser(input: LoginInput): Auth
+    addUser(input: RegisterUserInput): AuthUser
+    loginUser(input: LoginInput): AuthUser
+    loginAdmin(input: LoginInput): AuthAdmin
     addPet(input: RegisterPetInput): Pet
     createAppointment(input: AppointmentInput): Appointment
     deleteAppointment(appointmentID: ID!): Appointment
     updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
+    createService(input: ServiceInput): Service
   }
 `;
 

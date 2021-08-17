@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Pet, Appointment, Service, PetType } = require('../models');
+const { User, Pet, Appointment, Service, PetType, Admin } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -29,6 +29,10 @@ const resolvers = {
     },
     getAllAppointmentsByDate: async (parent, {date}) => {
       return await Appointment.find({date: date});
+    },
+    getAdmin: async (parent, args, context) => {
+      console.log("User Information", context.admin);
+      return await User.findById(context.admin._id);
     }
   },
   Mutation: {
@@ -62,6 +66,23 @@ const resolvers = {
     },
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
       return await Appointment.findbyIdAndUpdate({_id: appointmentID, $set: {paymentID: paymentID}});
+    },
+    createService: async (parent, args) => {
+      return await Service.create({name: args.name, price: args.price, description: args.description});
+    },
+    loginAdmin: async (parent, { email, password }) => {
+      const admin = await Admin.findOne({ email: email});
+      if(!admin) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const correctPassword = await user.isCorrectPassword(password);
+
+      if(!correctPassword) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const token = signToken(admin);
+
+      return {token, admin};
     }
   }
 };
