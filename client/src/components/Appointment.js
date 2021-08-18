@@ -57,14 +57,20 @@ const timeBtnInitialState = [
   }
 ];
 
+const today = new Date();
+const day = today.getDate();
+const month = today.getMonth()+1;
+const year = today.getFullYear();
 let history = useHistory();
 const {petID} = useParams();
-const [date, setDate] = useState(Date.now());
+const [date, setDate] = useState(`${year}-${month}-${day}`);
 const [time, setTime] = useState("");
 const [disableTimeBtn, setDisableTimeBtn] = useState(false);
 const [services, setServices] = useState([]);
 const [disableServiceBtn, setDisableServiceBtn] = useState(false);
 const [blockedTimeBtn, setBlockedTimeBtn] = useState(timeBtnInitialState);
+
+const timeBlocks = [9,10,11,12,13,14,15,16,17,18,19,20];
 
 const { loading1, appointmentData } = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
   variables: {date: date}
@@ -142,6 +148,35 @@ const handleServiceChange = (e) => {
   setDisableServiceBtn(true);
 }
 
+const selectTime = (index) => {
+    switch(index) {
+    case 0:
+      return "09:00 AM";
+    case 1:
+      return "10:00 AM";
+    case 2:
+      return "11:00 AM";
+    case 3:
+      return "12:00 PM";
+    case 4:
+      return "01:00 PM";
+    case 5:
+      return "02:00 PM";
+    case 6:
+      return "03:00 PM";
+    case 7:
+      return "04:00 PM";
+    case 8:
+      return "05:00 PM";
+    case 9:
+      return "06:00 PM";
+    case 10:
+      return "07:00 PM";
+    default:
+      return "08:00 PM";
+  }
+}
+
 return (
   <form>
     <div id="select-date">
@@ -149,18 +184,9 @@ return (
       <input type="date" id="date" name="date" value={date} onChange={handleDateChange}></input>
     </div>
     <div id="select-time">
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[0].blocked} onClick={handleTimeChange} value={9}>9:00 AM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[1].blocked} onClick={handleTimeChange} value={10}>10:00 AM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[2].blocked} onClick={handleTimeChange} value={11}>11:00 AM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[3].blocked} onClick={handleTimeChange} value={12}>12:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[4].blocked} onClick={handleTimeChange} value={13}>1:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[5].blocked} onClick={handleTimeChange} value={14}>2:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[6].blocked} onClick={handleTimeChange} value={15}>3:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[7].blocked} onClick={handleTimeChange} value={16}>4:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[8].blocked} onClick={handleTimeChange} value={17}>5:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[9].blocked} onClick={handleTimeChange} value={18}>6:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[10].blocked} onClick={handleTimeChange} value={19}>7:00 PM</button>
-      <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[11].blocked} onClick={handleTimeChange} value={20}>8:00 PM</button>
+      {timeBlocks.map((time, index) => {
+        return <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[index].blocked} onClick={handleTimeChange} value={index} key={`timeBlock-${index}`}>{selectTime(index)}</button>
+      })}
     </div>
     <div id="select-service">
     {servicesArray.map((service) => {
