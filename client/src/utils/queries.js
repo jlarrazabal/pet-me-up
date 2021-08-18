@@ -66,7 +66,7 @@ query getServices ($date: String!) {
    }
 }
 `;
-export const QUERY_GETAPPOINTMENTBYID = gql `
+export const QUERY_GETAPPOINTMENT_BY_ID = gql `
 query getAppointment ($getAppointment: ID!) {
   getAppointment (getAppointment: $appointmentID) {
     _id
@@ -75,6 +75,17 @@ query getAppointment ($getAppointment: ID!) {
     services
     petID
     paymentID
-   }
+}
+`
+
+export const QUERY_GETCHECKOUT_ID = gql `
+query getCheckout ($getCheckout: ID!) {
+  getCheckout (getCheckout: $checkoutID) {
+    _id
+    date
+    time
+    services
+    petID
+    checkoutID(service:[ID]!): checkout
 }
 `

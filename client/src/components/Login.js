@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './login.css';
 
 
-function Form(){
+function UserLogin(){
   const [emailLogin, setEmailLogin] = useState('');
   const [emailRegister, setEmailRegister] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
@@ -87,7 +87,7 @@ function Form(){
   ); 
 }
 
-export default Form;
+export default  UserLogin;
 
 
 
