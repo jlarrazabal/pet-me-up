@@ -20,6 +20,10 @@ const petList = petData?.petList || [];
 //Seting the petID as a state variable
 const [petID, setPetID] = useState(0);
 
+if (loading || loading1) {
+   return <div>...loading</div>
+}
+
 //Function to get the user this the pet history, adding the pet ID as a param
 const getHistory = (event, id) => {
    setPetID(id);
@@ -43,7 +47,7 @@ return (
     <div class="container col-6" id="petList">
     {petList.map((pet) => {
         return (
-        <div class="container-fluid">
+        <div key={pet._id} class="container-fluid">
          <h1>{pet.petName}</h1>
          <h3>{pet.petType}</h3>
          <h3>{pet.birthday}</h3>
@@ -59,4 +63,5 @@ return (
    </div>
    ) 
 }
+
 
