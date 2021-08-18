@@ -55,7 +55,7 @@ return (
             <div key={appointment._id} class="container-fluid">
             <h1>{appointment.date}</h1>
             {appointment.services.map((service) => {
-            return <h3 key={service_id} >{service.name}</h3> })}
+            return <h3 key={service._id} >{service.name}</h3> })}
             <button className="btn btn-primary"  onClick={(e) => makeApp(e, pet._id)}>{`Make a new appointment for ${pet.petName}`}</button>
             </div>
             )}
