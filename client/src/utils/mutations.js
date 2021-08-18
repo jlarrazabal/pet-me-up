@@ -29,7 +29,17 @@ mutation createAppointment($date: String!, $time: Int!, $services:[Service], $pe
 
 export const CREATE_SERVICE = gql `
 mutation createService($name: String!, $price: Int!, $description: String!) {
-  createAppointment(name: $name, price: $price, description: $description) {
+  createService(name: $name, price: $price, description: $description) {
+    _id
+    name
+    price
+    description
+  }
+}`;
+
+export const DELETE_SERVICE = gql `
+mutation deleteService($serviceID: ID!) {
+  deleteService(serviceID: $serviceID) {
     _id
     name
     price

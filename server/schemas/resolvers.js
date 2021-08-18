@@ -56,10 +56,10 @@ const resolvers = {
       return {token, user};
     },
     addPet: async (parent, args, context) => {
-      return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, ownerID: context.user._id});
+      return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, owner: context.user});
     },
-    createAppointment: async (parent, args) => {
-      return await Appointment.create({date: args.date, time: args.time, services: args.services, petID: args.petID});
+    createAppointment: async (parent, args, context) => {
+      return await Appointment.create({date: args.date, time: args.time, services: args.services, pet: context.pet});
     },
     deleteAppointment: async (parent, {appointmentID}) => {
       return await Appointment.deleteOne({_id: appointmentID});
@@ -69,6 +69,9 @@ const resolvers = {
     },
     createService: async (parent, args) => {
       return await Service.create({name: args.name, price: args.price, description: args.description});
+    },
+    deleteService: async (parent, args) => {
+      return await Service.deleteOne({_id: args.serviceID});
     },
     loginAdmin: async (parent, { email, password }) => {
       const admin = await Admin.findOne({ email: email});

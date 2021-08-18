@@ -73,7 +73,7 @@ const typeDefs = gql`
   input RegisterPetInput {
     petName: String!
     birthday: Int!
-    petType: PetType!
+    petType: String!
     breed: String!
     gender: String!
     weight: Float!
@@ -82,8 +82,7 @@ const typeDefs = gql`
   input AppointmentInput {
     date: String!
     time: Int!
-    services: [Service]!
-    petID: String!
+    services: [String]!
   }
 
   input ServiceInput {
@@ -113,6 +112,7 @@ const typeDefs = gql`
     deleteAppointment(appointmentID: ID!): Appointment
     updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
     createService(input: ServiceInput): Service
+    deleteService(serviceID: ID!): Service
   }
 `;
 

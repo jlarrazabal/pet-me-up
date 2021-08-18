@@ -44,12 +44,13 @@ function App() {
               <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/appointment" component={Appointment}/>
+              <Route exact path="/appointment/:petID" component={Appointment}/>
               <Route exact path="/pethistory" component={Pethistory}/>
               <Route path="/pethistory/:petID" component={Pethistory} />
               <Route path="/appointment-summary/:appointmentID" component={Pethistory} />
               <Route component={Home} />
             </Switch>
+            <Footer/>
         </div>
       </Router>
     </ApolloProvider>
