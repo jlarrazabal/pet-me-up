@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import './login.css';
+// import ReactDOM from 'react-dom';
+import './Login.css';
 
 
 function UserLogin(){
@@ -9,7 +9,7 @@ function UserLogin(){
   const [passwordLogin, setPasswordLogin] = useState('');
   const [passwordRegister, setPasswordRegister] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [lastName, setlastName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e) => {
@@ -23,18 +23,18 @@ function UserLogin(){
       setEmailLogin(inputValue);
     } else {
       setPasswordLogin(inputValue);
-    } 
+    }
   };
 
-  if (inputType === 'emailRegister'){
-    setEmailRegister(inputValue);
-  }else if (inputType === 'FirstName') {
-    setFirstName(inputValue);
-  }else if (inputType === 'LastName') {
-    setlastName(inputValue);
-  } else {
-    setPasswordRegister(inputValue);
-  }
+  // if (inputType === 'emailRegister'){
+  //   setEmailRegister(inputValue);
+  // }else if (inputType === 'FirstName') {
+  //   setFirstName(inputValue);
+  // }else if (inputType === 'LastName') {
+  //   setlastName(inputValue);
+  // } else {
+  //   setPasswordRegister(inputValue);
+  // }
 
 
   const handleFormSubmit = (e) => {
@@ -42,20 +42,20 @@ function UserLogin(){
     e.preventDefault();
 
     // First we check to see if the email is not valid or if the userName is empty. If so we set an error message to be displayed on the page.
-    if (!validateEmailLogin(emailLogin) || !passwordLogin) {
-      setErrorMessage('Email or password is invalid');
-      // We want to exit out of this code block if something is wrong so that the user can correct it
-      return;
-      // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
-    }
-    if (!checkPasswordLogin(passwordLogin)) {
-      setErrorMessage(
-        `Choose a more secure password for the account`
-      );
-      return;
-    }
+    // if (!validateEmailLogin(emailLogin) || !passwordLogin) {
+    //   setErrorMessage('Email or password is invalid');
+    //   // We want to exit out of this code block if something is wrong so that the user can correct it
+    //   return;
+    //   // Then we check to see if the password is not valid. If so, we set an error message regarding the password.
+    // }
+    // if (!checkPasswordLogin(passwordLogin)) {
+    //   setErrorMessage(
+    //     `Choose a more secure password for the account`
+    //   );
+    //   return;
+    // }
 
-    // If everything goes according to plan, we want to clear out the input after a successful registration. 
+    // If everything goes according to plan, we want to clear out the input after a successful registration.
     setPasswordLogin('');
     setPasswordRegister('');
     setEmailLogin('');
@@ -84,7 +84,7 @@ function UserLogin(){
         </div>
       )}
      </div>
-  ); 
+  );
 }
 
 export default  UserLogin;
