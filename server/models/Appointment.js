@@ -17,6 +17,7 @@ const appointmentSchema = new Schema({
   services: [ServiceModel.schema],
   pet: {
     type: PetModel.schema,
+    required: true
   },
   paymentID: {
     type: String,

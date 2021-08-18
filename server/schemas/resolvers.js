@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Pet, Appointment, Service, PetType } = require('../models');
+const { User, Pet, Appointment, Service, PetType, Admin } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
@@ -29,6 +29,10 @@ const resolvers = {
     },
     getAllAppointmentsByDate: async (parent, {date}) => {
       return await Appointment.find({date: date});
+    },
+    getAdmin: async (parent, args, context) => {
+      console.log("User Information", context.admin);
+      return await User.findById(context.admin._id);
     }
   },
   Mutation: {
@@ -52,16 +56,36 @@ const resolvers = {
       return {token, user};
     },
     addPet: async (parent, args, context) => {
-      return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, ownerID: context.user._id});
+      return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, owner: context.user});
     },
-    createAppointment: async (parent, args) => {
-      return await Appointment.create({date: args.date, time: args.time, services: args.services, petID: args.petID});
+    createAppointment: async (parent, args, context) => {
+      return await Appointment.create({date: args.date, time: args.time, services: args.services, pet: context.pet});
     },
     deleteAppointment: async (parent, {appointmentID}) => {
       return await Appointment.deleteOne({_id: appointmentID});
     },
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
       return await Appointment.findbyIdAndUpdate({_id: appointmentID, $set: {paymentID: paymentID}});
+    },
+    createService: async (parent, args) => {
+      return await Service.create({name: args.name, price: args.price, description: args.description});
+    },
+    deleteService: async (parent, args) => {
+      return await Service.deleteOne({_id: args.serviceID});
+    },
+    loginAdmin: async (parent, { email, password }) => {
+      const admin = await Admin.findOne({ email: email});
+      if(!admin) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const correctPassword = await user.isCorrectPassword(password);
+
+      if(!correctPassword) {
+        throw new AuthenticationError("Incorrect credentials");
+      }
+      const token = signToken(admin);
+
+      return {token, admin};
     }
   }
 };
