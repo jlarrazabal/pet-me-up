@@ -72,13 +72,28 @@ query getAllAppointmentsByDate ($date: String!) {
 `
 
 export const QUERY_GETAPPOINTMENTBYID = gql `
-query getAppointment ($getAppointment: ID!) {
-  getAppointment (getAppointment: $appointmentID) {
+query getAppointment ($appointmentID: ID!) {
+  getAppointment (appointmentID: $appointmentID) {
     _id
     date
     time
-    services
-    petID
+    services {
+      _id
+      name
+      price
+    }
+    pet {
+      _id
+      petName
+      birthday
+      petType {
+        _id
+        petTypeName
+      }
+      breed
+      gender
+      weight
+    }
     paymentID
    }
 }
