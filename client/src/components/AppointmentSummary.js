@@ -16,57 +16,7 @@ const [paymentID, setPaymentID] = useState("");
      }
  } );
  const [deleteAppointment, {error}] = useMutation(DELETE_APPOINTMENT);
- //Invoke stripe api. pass in public key
- const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
- const Cart = () => {
-   const [state, dispatch] = useStoreContext();
-   const [getCheckout, { data }] = useLazyQuery(QUERY_GETCHECKOUT_ID);
-//if graphql returns a session,redirect strip to that session
-   useEffect(() => {
-      if (data) {
-        stripePromise.then((res) => {
-          res.redirectToCheckout({ sessionId: data.checkout.session });
-        });
-      }
-    }, [data]);
-    //watching the cart length in the state and the dispatch function
-    useEffect(() => {
-      async function getCart() {
-        const cart = await idbPromise('cart', 'get');
-        dispatch({ type: ADD_MULTIPLE_TO_CART, products: [...cart] });
-      }
-
-   if (!state.cart.length) {
-      getCart();
-    }
-  }, [state.cart.length, dispatch]);
-
-  function toggleCart() {
-    dispatch({ type: TOGGLE_CART });
-  }
-
-  function calculateTotal() {
-    let sum = 0;
-    state.cart.forEach((item) => {
-      sum += item.price * item.purchaseQuantity;
-    });
-    return sum.toFixed(2);
-  }
-
-  function submitCheckout() {
-   const servicesIds = [];
-
-   state.cart.forEach((item) => {
-     for (let i = 0; i < item.serviceQuantity; i++) {
-       servicesIds.push(item._id);
-     }
-   });
-
-   getCheckout({
-     variables: { appointmentID:appointmentID },
-   });
- }
   
  //event handlers
  const handleServicePayment = (e)=>{
@@ -95,6 +45,5 @@ const [paymentID, setPaymentID] = useState("");
             <div><button onClick={cancelAppointment} className='cancelButton' type="button">Cancel</button></div>
            </div>
           )
-}
-
 };
+
