@@ -1,25 +1,23 @@
 import React from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useQuery } from '@apollo/client';
-import { QUERY_GETPETAPP } from '../utils/queries';
-import { QUERY_GETPET } from '../utils/queries';
-import { useParams } from "react-router-dom";
+import { QUERY_GETPETAPP, QUERY_GETPET } from '../utils/queries';
 
 export default function  Pethistory() {
 //Getting the id from the params in the URL
 const { petID } = useParams();
 
 //Importing the appointment query using the pet id
-const { loading1, appData} = useQuery(QUERY_GETPETAPP, {variable : {petID: petID}})
-const appointmentsList = appData?.appointmentsList || [];
+const appData = useQuery(QUERY_GETPETAPP, {variable : {petID: petID}})
+const appointmentsList = (appData && appData.data?.getAllPetAppointments) || [];
 
 //Importing the pet query using the pet id
-const { loading, petData} = useQuery(QUERY_GETPET, {variable : {petID: petID}})
-const pet = petData?.pet || [];
+const petData = useQuery(QUERY_GETPET, {variable : {petID: petID}})
+const pet = (petData && petData.data?.getPet) || null;
 
 let history = useHistory();
 
-if (loading || loading1) {
+if (appData.loading || petData.loading) {
     return <div>...loading</div>
 }
 

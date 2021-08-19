@@ -8,21 +8,60 @@ export default function Dashboard() {
 let history = useHistory();
 
 //Importing the user query
-const { loading1, userData } = useQuery(QUERY_GETUSER);
-const user = userData?.user || [];
+// const userData = useQuery(QUERY_GETUSER);
+// const user = (userData && userData.data?.getUser) || null;
 
-const ownerID = user._id;
+const user = {
+   firstName: "Periquito",
+   lastName: "Perez",
+   email: "pp@gmail.com"
+}
 
-//Importing all the user's pets using the user ID
-const { loading, petData} = useQuery(QUERY_GETPETSBYOWNER, {variables: {ownerID: ownerID}});
-const petList = petData?.petList || [];
+const petList =[
+   {
+      _id: 5,
+      petName: "Pistachio",
+      petType: "Dog",
+      birthday: "06/14/2020",
+      breed: "Chihuahua",
+      weigth: "5 pounds",
+      gender: "Male"
+   },
+   {
+      _id: 8,
+      petName: "Chispita",
+      petType: "Cat",
+      birthday: "08/14/2020",
+      breed: "Mix",
+      weigth: "8 pounds",
+      gender: "Female"
+   },
+   {
+      _id: 8,
+      petName: "Manuelita",
+      petType: "Turtle",
+      birthday: "08/14/2018",
+      breed: "Green turtle",
+      weigth: "2 pounds",
+      gender: "Female"
+   }
+]
+
+// // const ownerID = user._id;
+// const ownerID = "611da7e48c78b43fbc3c6240";
+
+// //Importing all the user's pets using the user ID
+// const petData = useQuery(QUERY_GETPETSBYOWNER, {variables: {ownerID: ownerID}});
+// const petList = (petData && petData.data?.getPets) || [];
 
 //Seting the petID as a state variable
 const [petID, setPetID] = useState(0);
 
-if (loading || loading1) {
-   return <div>...loading</div>
-}
+// if (petList.loading || petData.loading) {
+//    return <div>...loading</div>
+// };
+
+// console.log(userData);
 
 //Function to get the user this the pet history, adding the pet ID as a param
 const getHistory = (event, id) => {
@@ -33,29 +72,30 @@ const getHistory = (event, id) => {
 //Function to get the user to the appointment page, to book for that specific pet, adding the pet ID as a param
 const makeApp = (event, id) => {
    setPetID(id);
-   history.push( `/appointment/${petID}`);
+   history.push( `/appointment/${id}`);
 }
 
 return (
-    <div className="container col-12" >
-    <div class="container col-6" id="userProfile">
-        <div class="container-fluid">
-         <h1>{`${user.firstName} ${user.lastName}`} </h1>
-         <h3>{user.email}</h3>
-         </div>
+    <div className={"container-fluid row col-12"} >
+    <div className={"container col-11 text-dark containerStyle"} id="userProfile">
+         <div className={"container"}>
+         <h1>Your Dashboard!</h1>
+         <h1 className="text-warning">{`${user.firstName} ${user.lastName}`} </h1>
+         <h5>{user.email}</h5>
+        </div>   
     </div>
-    <div class="container col-6" id="petList">
+    <div className={"container-fluid row"} id="petList">
     {petList.map((pet) => {
         return (
-        <div key={pet._id} class="container-fluid">
+        <div key={pet._id} className={"containerStyle container col-3 text-center"}>
          <h1>{pet.petName}</h1>
          <h3>{pet.petType}</h3>
-         <h3>{pet.birthday}</h3>
-         <h3>{pet.breed}</h3>
-         <h3>{pet.weigth}</h3>
-         <h3>{pet.gender}</h3>
-         <button className="btn btn-primary"  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
-         <button className="btn btn-primary"  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
+         <h5>Born in {pet.birthday}</h5>
+         <h5>Breed: {pet.breed}</h5>
+         <h5>Weigth: {pet.weigth}</h5>
+         <h5>Gender: {pet.gender}</h5>
+         <button className={"btn btn-secondary"}  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
+         <button className={"btn btn-secondary btn-margin"}  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
          </div>
         )
     })}
