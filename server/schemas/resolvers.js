@@ -65,10 +65,7 @@ const resolvers = {
         cancel_url: `${url}../component/canceled`
       });
       return { session: session.id };
-
-     }
-    
-   
+     },
     getAdmin: async (parent, args, context) => {
       console.log("User Information", context.admin);
       return await User.findById(context.admin._id);
