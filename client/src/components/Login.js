@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import './Login.css';
 
 
-function Form(){
+function UserLogin(){
   const [emailLogin, setEmailLogin] = useState('');
   const [emailRegister, setEmailRegister] = useState('');
   const [passwordLogin, setPasswordLogin] = useState('');
@@ -87,4 +87,10 @@ function Form(){
   );
 }
 
-export default Form;
+export default  UserLogin;
+
+
+
+    
+
+  
