@@ -17,7 +17,9 @@ query getPets ($ownerID: ID!) {
     _id
     petName
     birthday
-    petType
+    petType {
+      petTypeName
+    }
     breed
     gender
     weight
@@ -38,7 +40,9 @@ query getPet ($petID: ID!) {
     _id
     petName
     birthday
-    petType
+    petType {
+      petTypeName
+    }
     breed
     gender
     weight

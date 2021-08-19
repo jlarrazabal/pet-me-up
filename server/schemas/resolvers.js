@@ -22,7 +22,10 @@ const resolvers = {
       return await Appointment.find({petID: petID});
     },
     getServices: async (parent, args) => {
-      return await Service.find({});
+      console.log("Query Services");
+      const services = await Service.find({});
+      console.log(services);
+      return services;
     },
     getPetTypes: async (parent, args) => {
       return await PetType.find({});

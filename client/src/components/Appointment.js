@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_APPOINTMENTS_BY_DATE, QUERY_GET_SERVICES, QUERY_GETPET } from '../utils/queries';
@@ -63,90 +63,38 @@ const month = today.getMonth()+1;
 const year = today.getFullYear();
 let history = useHistory();
 const {petID} = useParams();
-const [date, setDate] = useState(`${year}-${month}-${day}`);
-const [time, setTime] = useState("");
+const [date, setDate] = useState(`${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}`);
+const [time, setTime] = useState(null);
+const [timeFormated, setTimeFormated] = useState(null);
 const [disableTimeBtn, setDisableTimeBtn] = useState(false);
 const [services, setServices] = useState([]);
+const [servicesPrices, setServicesPrices] = useState([0]);
 const [disableServiceBtn, setDisableServiceBtn] = useState(false);
 const [blockedTimeBtn, setBlockedTimeBtn] = useState(timeBtnInitialState);
+const [appointmentSet, setAppointmentSet] = useState(false);
+const [createAppointment, {error}] = useMutation(CREATE_APPOINTMENT);
 
 const timeBlocks = [9,10,11,12,13,14,15,16,17,18,19,20];
 
-const { loading1, appointmentData } = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
+const appointmentByDate = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
   variables: {date: date}
 });
-const appointments = appointmentData?.appointment || [];
+const appointments = (appointmentByDate && appointmentByDate.data?.getAllAppointmentsByDate) || [];
 
-const { loading2, servicesData } = useQuery(QUERY_GET_SERVICES);
-const servicesArray = servicesData?.service || [];
-
-const {loading3, petData} = useQuery(QUERY_GETPET, {
-  variables: {petID: petID}
-});
-const pet = petData?.pet || [];
-
- const [createAppointment, {error}] = useMutation(CREATE_APPOINTMENT);
-
- if(loading1 || loading2 || loading3) {
-   return <div>...Loading</div>;
- }
-
- if(appointments) {
-   setBlockedTimeBtn(blockedTimeBtn.map(timeSlot => {
-       if(appointments.includes(timeSlot.timeBlock)){
-         timeSlot.blocked = true;
-         return timeSlot;
-       } else {
-         return timeSlot;
-       }
-     })
-   );
- }
-
-//Handlers
-const handleDateChange = (e) => {
-  setDate({value: e.target.value});
-}
-
-const handleTimeChange = (e) => {
-  e.preventDefault();
-  setTime({value: e.target.value});
-  setDisableTimeBtn(true);
-}
-
-const handleBookAppointment = async (e) => {
-  e.preventDefault();
-  try {
-    const newAppointment = await createAppointment({
-      date: date,
-      time: time,
-      services: services,
-      pet: pet[0]
-    });
-
-    if(error) {
-      console.log(error);
-    }
-    history.push(`/appointment-summary/${newAppointment._id}`);
-  } catch (err) {
-    console.log(err);
+useEffect(()=> {
+  if(appointments && !appointmentSet) {
+    setAppointmentSet(true);
+    setBlockedTimeBtn(blockedTimeBtn.map(timeSlot => {
+        if(appointments.includes(timeSlot.timeBlock)){
+          timeSlot.blocked = true;
+          return timeSlot;
+        } else {
+          return timeSlot;
+        }
+      })
+    );
   }
-}
-
-const handleReset = (e) => {
-  e.preventDefault();
-  setDate("");
-  setTime("");
-  setDisableTimeBtn(false);
-  setServices([]);
-  setDisableServiceBtn(false);
-}
-
-const handleServiceChange = (e) => {
-  e.preventDefault();
-  setServices([...services,e.target.value]);
-  setDisableServiceBtn(true);
-}
+}, [appointments,date]);
 
 const selectTime = (index) => {
     switch(index) {
@@ -177,28 +125,110 @@ const selectTime = (index) => {
   }
 }
 
+useEffect(()=> {
+  setTimeFormated(selectTime(parseInt(time)));
+  console.log(timeFormated);
+}, [time]);
+
+const servicesData = useQuery(QUERY_GET_SERVICES);
+const servicesArray = (servicesData && servicesData.data?.getServices) || [];
+
+const petData = useQuery(QUERY_GETPET, {
+  variables: {petID: petID}
+});
+const pet = (petData && petData.data?.getPet) || null;
+
+if(appointmentByDate.loading || servicesData.loading || petData.loading) {
+ return <div>...Loading</div>;
+}
+
+//Handlers
+const handleDateChange = (e) => {
+  setDate(e.target.value);
+}
+
+const handleTimeChange = (e) => {
+  console.log("Time:", e.target.value);
+  setTime(e.target.value);
+  // setDisableTimeBtn(true);
+}
+
+const handleBookAppointment = async (e) => {
+  e.preventDefault();
+  try {
+    const newAppointment = await createAppointment({
+      date: date,
+      time: time,
+      services: services,
+      pet: pet[0]
+    });
+
+    if(error) {
+      console.log(error);
+    }
+    history.push(`/appointment-summary/${newAppointment._id}`);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+const handleReset = (e) => {
+  e.preventDefault();
+  setDate(`${year}-${month>=10?month:`0${month}`}-${day>=10?day:`0${day}`}`);
+  setTime(null);
+  setDisableTimeBtn(false);
+  setServices([]);
+  setServicesPrices([0]);
+  setDisableServiceBtn(false);
+}
+
+const handleServiceChange = (serviceID) => {
+  if(services.find(service => service._id === serviceID)) {
+    setServices(services.filter(service => service._id !== serviceID));
+  } else {
+    const service = servicesArray.find(service => service._id === serviceID);
+    setServices([...services, service]);
+  }
+}
+
 return (
-  <form>
-    <div id="select-date">
-      <label for="date">Select a date:</label>
-      <input type="date" id="date" name="date" value={date} onChange={handleDateChange}></input>
+  <div className="container container-fluid d-flex p-2 bd-highlight">
+    <div className="container container-fluid center">
+      <h3>{pet.petName}'s Appointment</h3>
+      <div className="left">
+        <ul>
+          <li>Date: {date}</li>
+          <li>Time: {timeFormated}</li>
+          <li>Services:<ul>{services.map(service => {return <li>Service: {service.name} - Price: ${service.price}</li>})}</ul></li>
+          <li>Total: ${services.reduce((total, item) => {
+            return total + item.price;
+          },0)}</li>
+        </ul>
+      </div>
     </div>
-    <div id="select-time">
-      {timeBlocks.map((time, index) => {
-        return <button className="btn btn-lg btn-primary" disabled={disableTimeBtn || blockedTimeBtn[index].blocked} onClick={handleTimeChange} value={index} key={`timeBlock-${index}`}>{selectTime(index)}</button>
-      })}
-    </div>
-    <div id="select-service">
-    {servicesArray.map((service) => {
-      return (
-          <button className="btn btn-lg btn-primary" disabled={disableServiceBtn} onClick={handleServiceChange} value={service}>{service.name} key={service._id}</button>
-      );
-    })}
-    </div>
-    <div id="action-btns">
-      <button className="btn btn-lg btn-primary" onClick={handleBookAppointment}>Book Appointment</button>
-      <button className="btn btn-lg btn-primary" onClick={handleReset}>Reset</button>
-    </div>
-  </form>
+      <div className="container container-fluid center" id="select-date">
+        <h3 for="date">Select a Date</h3>
+        <input type="date" id="date" name="date" value={date} onChange={handleDateChange}></input>
+      </div>
+      <div className="container container-fluid center" id="select-time">
+        <h3>Select Time</h3>
+        {timeBlocks.map((time, index) => {
+          return <button className="btn btn-lg btn-info" disabled={disableTimeBtn || blockedTimeBtn[index].blocked} onClick={handleTimeChange} value={index} key={`timeBlock-${index}`}>{selectTime(index)}</button>
+        })}
+      </div>
+      <div className="container container-fluid center" id="select-service">
+        <h3>Select Service(s)</h3>
+        {servicesArray.map((service) => {
+          return (
+              <button className="btn btn-lg btn-info" disabled={disableServiceBtn} onClick={() => handleServiceChange(service._id)} value={service} key={service._id}>{service.name}</button>
+          );
+        })}
+      </div>
+      <div className="container container-fluid center" id="action-btns">
+        <h3>Actions</h3>
+        <button className="btn btn-lg btn-primary" onClick={handleBookAppointment}>Book</button>
+        <button className="btn btn-lg btn-danger" onClick={handleReset}>Reset</button>
+      </div>
+  </div>
 );
 }
