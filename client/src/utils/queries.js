@@ -17,7 +17,9 @@ query getPets ($ownerID: ID!) {
     _id
     petName
     birthday
-    petType
+    petType {
+      petTypeName
+    }
     breed
     gender
     weight
@@ -38,7 +40,9 @@ query getPet ($petID: ID!) {
     _id
     petName
     birthday
-    petType
+    petType {
+      petTypeName
+    }
     breed
     gender
     weight
@@ -67,38 +71,30 @@ query getAllAppointmentsByDate ($date: String!) {
 }
 `
 
-// export const QUERY_GETAPPOINTMENTBYID = gql `
-// query getAppointment ($getAppointment: ID!) {
-//   getAppointment (getAppointment: $appointmentID) {
-//     _id
-//     date
-//     time
-//     services{
-//       name
-//       price
-//       description
-//     }
-//     pet{
-//       _id
-//       petName
-//       owner{
-//         _id
-//         firstName 
-//         lastName
-//       }
-//     }
-//     paymentID
-// }
-// `
-
-// export const QUERY_GETCHECKOUT_ID = gql `
-// query getCheckout ($getCheckout: ID!) {
-//   getCheckout (getCheckout: $checkoutID) {
-//     _id
-//     date
-//     time
-//     services
-//     petID
-//     checkoutID
-// }
-// `
+export const QUERY_GETAPPOINTMENTBYID = gql `
+query getAppointment ($appointmentID: ID!) {
+  getAppointment (appointmentID: $appointmentID) {
+    _id
+    date
+    time
+    services {
+      _id
+      name
+      price
+    }
+    pet {
+      _id
+      petName
+      birthday
+      petType {
+        _id
+        petTypeName
+      }
+      breed
+      gender
+      weight
+    }
+    paymentID
+   }
+}
+`
