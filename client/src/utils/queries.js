@@ -67,26 +67,38 @@ query getAllAppointmentsByDate ($date: String!) {
 }
 `
 
-export const QUERY_GETAPPOINTMENTBYID = gql `
-query getAppointment ($getAppointment: ID!) {
-  getAppointment (getAppointment: $appointmentID) {
-    _id
-    date
-    time
-    services
-    petID
-    paymentID
-}
-`
+// export const QUERY_GETAPPOINTMENTBYID = gql `
+// query getAppointment ($getAppointment: ID!) {
+//   getAppointment (getAppointment: $appointmentID) {
+//     _id
+//     date
+//     time
+//     services{
+//       name
+//       price
+//       description
+//     }
+//     pet{
+//       _id
+//       petName
+//       owner{
+//         _id
+//         firstName 
+//         lastName
+//       }
+//     }
+//     paymentID
+// }
+// `
 
-export const QUERY_GETCHECKOUT_ID = gql `
-query getCheckout ($getCheckout: ID!) {
-  getCheckout (getCheckout: $checkoutID) {
-    _id
-    date
-    time
-    services
-    petID
-    checkoutID(service:[ID]!): checkout
-}
-`
+// export const QUERY_GETCHECKOUT_ID = gql `
+// query getCheckout ($getCheckout: ID!) {
+//   getCheckout (getCheckout: $checkoutID) {
+//     _id
+//     date
+//     time
+//     services
+//     petID
+//     checkoutID
+// }
+// `
