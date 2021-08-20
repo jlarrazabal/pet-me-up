@@ -68,7 +68,7 @@ const [time, setTime] = useState(null);
 const [timeFormated, setTimeFormated] = useState(null);
 const [disableTimeBtn, setDisableTimeBtn] = useState(false);
 const [services, setServices] = useState([]);
-const [servicesPrices, setServicesPrices] = useState([0]);
+// const [servicesPrices, setServicesPrices] = useState([0]);
 const [disableServiceBtn, setDisableServiceBtn] = useState(false);
 const [blockedTimeBtn, setBlockedTimeBtn] = useState(timeBtnInitialState);
 const [appointmentSet, setAppointmentSet] = useState(false);
@@ -120,8 +120,10 @@ const selectTime = (index) => {
       return "06:00 PM";
     case 10:
       return "07:00 PM";
-    default:
+    case 11:
       return "08:00 PM";
+    default:
+      return null;
   }
 }
 
@@ -154,13 +156,12 @@ const handleTimeChange = (e) => {
 }
 
 const handleBookAppointment = async (e) => {
-  e.preventDefault();
   try {
     const newAppointment = await createAppointment({
       date: date,
       time: time,
       services: services,
-      pet: pet[0]
+      pet: pet
     });
 
     if(error) {
@@ -178,7 +179,6 @@ const handleReset = (e) => {
   setTime(null);
   setDisableTimeBtn(false);
   setServices([]);
-  setServicesPrices([0]);
   setDisableServiceBtn(false);
 }
 
@@ -194,15 +194,12 @@ const handleServiceChange = (serviceID) => {
 return (
   <div className="container container-fluid d-flex p-2 bd-highlight">
     <div className="container container-fluid center">
-      <h3>{pet.petName}'s Appointment</h3>
+      <h3 className="pet-appointment">{pet.petName}'s Appointment</h3>
       <div className="left">
         <ul>
           <li>Date: {date}</li>
           <li>Time: {timeFormated}</li>
-          <li>Services:<ul>{services.map(service => {return <li>Service: {service.name} - Price: ${service.price}</li>})}</ul></li>
-          <li>Total: ${services.reduce((total, item) => {
-            return total + item.price;
-          },0)}</li>
+          <li>Services:<ul>{services.map(service => {return <li className="service-li">Service: {service.name} - Price: ${service.price}</li>})}<li>{services.length ===0?null:`Total: $${services.reduce((total, item) => {return total + item.price;},0)}`}</li></ul></li>
         </ul>
       </div>
     </div>

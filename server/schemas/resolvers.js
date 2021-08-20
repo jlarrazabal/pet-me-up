@@ -31,7 +31,7 @@ const resolvers = {
       return await PetType.find({});
     },
     getAllAppointmentsByDate: async (parent, {date}) => {
-      return await Appointment.find({date: date});
+      return await Appointment.find({date: { $gte: `${date}`, $lte: `${date}` }});
     },
     //I added a checkout: Please review this
     // getCheckout:async(parent,args, context) =>{
@@ -69,7 +69,7 @@ const resolvers = {
     //   });
     //   return { session: session.id };
     //  },
-    
+
     getAdmin: async (parent, args, context) => {
       console.log("User Information", context.admin);
       return await User.findById(context.admin._id);
