@@ -3,17 +3,24 @@ import {
 } from '@apollo/client';
 
 export const CREATE_APPOINTMENT = gql `
-mutation createAppointment($date: String!, $time: Int!, $services:[Service], $pet: Pet) {
-  createAppointment(date: $date, time: $time, services: $services, pet: $pet) {
+mutation createAppointment($input: AppointmentInput!) {
+  createAppointment(input: $input) {
     _id
     date
     time
-    services
+    services {
+      _id
+      name
+      price
+      description
+    }
     pet {
       _id
       petName
       birthday
-      petType
+      petType {
+        petTypeName
+      }
       breed
       gender
       weight

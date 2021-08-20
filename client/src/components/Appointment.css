@@ -4,14 +4,23 @@ button {
   width: 100%;
 }
 
-.center {
-  text-align: center;
-}
-
 ul {
   list-style: none;
 }
 
+/* Classess */
+.center {
+  text-align: center;
+}
+
 .left {
   text-align: left;
+}
+
+.service-li {
+  width: 15rem;
+}
+
+.pet-appointment {
+  width: 19rem;
 }
