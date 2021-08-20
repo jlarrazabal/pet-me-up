@@ -22,7 +22,10 @@ const resolvers = {
       return await Appointment.find({petID: petID});
     },
     getServices: async (parent, args) => {
-      return await Service.find({});
+      console.log("Query Services");
+      const services = await Service.find({});
+      console.log(services);
+      return services;
     },
     getPetTypes: async (parent, args) => {
       return await PetType.find({});
@@ -30,6 +33,43 @@ const resolvers = {
     getAllAppointmentsByDate: async (parent, {date}) => {
       return await Appointment.find({date: date});
     },
+    //I added a checkout: Please review this
+    // getCheckout:async(parent,args, context) =>{
+    //   // const url = new URL(context.headers.referer).origin;
+    //   const order = new Order({services: args.services});
+    //   const line_items =[];
+
+    //   const {services} = await order.populate('services').execPopulate()
+
+    //   for (let i = 0; i < services.length; i++) {
+    //     const services = await stripe.services.create({
+    //       name: services[i].name,
+    //       description: services[i].description,
+    //       // images: [`${url}/images/${products[i].image}`]
+    //     });
+
+    //     const price = await stripe.prices.create({
+    //       product: product.id,
+    //       unit_amount: services[i].price * 100,
+    //       currency: 'usd',
+    //     });
+
+    //     line_items.push({
+    //       price: price.id,
+    //       quantity: 1
+    //     });
+    //   }
+
+    //   const session = await stripe.checkout.sessions.create({
+    //     payment_method_types: ['card'],
+    //     line_items,
+    //     mode: 'payment',
+    //     success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+    //     cancel_url: `${url}../component/canceled`
+    //   });
+    //   return { session: session.id };
+    //  },
+    
     getAdmin: async (parent, args, context) => {
       console.log("User Information", context.admin);
       return await User.findById(context.admin._id);

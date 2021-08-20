@@ -1,0 +1,17 @@
+/* General Selectors */
+button {
+  margin: 0.5rem;
+  width: 100%;
+}
+
+.center {
+  text-align: center;
+}
+
+ul {
+  list-style: none;
+}
+
+.left {
+  text-align: left;
+}

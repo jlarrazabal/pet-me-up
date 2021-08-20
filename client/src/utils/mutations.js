@@ -27,6 +27,13 @@ mutation createAppointment($date: String!, $time: Int!, $services:[Service], $pe
   }
 }`;
 
+export const DELETE_APPOINTMENT = gql `
+mutation deleteAppointment($appointmentID: ID!) {
+  deleteAppointment(appointmentID: $appointmentID) {
+    _id
+  }
+}`;
+
 export const CREATE_SERVICE = gql `
 mutation createService($name: String!, $price: Int!, $description: String!) {
   createService(name: $name, price: $price, description: $description) {
