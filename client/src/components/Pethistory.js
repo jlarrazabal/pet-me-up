@@ -6,14 +6,18 @@ import { QUERY_GETPETAPP, QUERY_GETPET } from '../utils/queries';
 export default function  Pethistory() {
 //Getting the id from the params in the URL
 const { petID } = useParams();
+console.log(petID);
 
 //Importing the appointment query using the pet id
 const appData = useQuery(QUERY_GETPETAPP, {variable : {petID: petID}})
 const appointmentsList = (appData && appData.data?.getAllPetAppointments) || [];
 
 //Importing the pet query using the pet id
-const petData = useQuery(QUERY_GETPET, {variable : {petID: petID}})
+const petData = useQuery(QUERY_GETPET, {
+  variables: {petID: petID}
+});
 const pet = (petData && petData.data?.getPet) || null;
+console.log(pet);
 
 let history = useHistory();
 
@@ -31,7 +35,7 @@ return (
     <div class="container col-6" id="Petprofile">
         <div class="container-fluid">
          <h1>{pet.petName}</h1>
-         <h3>{pet.petType}</h3>
+         <h3>{pet.petType.petTypeName}</h3>
          <h3>{pet.birthday}</h3>
          <h3>{pet.breed}</h3>
          <h3>{pet.weigth}</h3>
@@ -43,9 +47,9 @@ return (
      //Getting all the appointment history of the pet
         if (appointmentsList.length===0) {
             return (
-            <div> 
+            <div>
              <h1>Your pet has never visited the vet :(</h1>
-             <button className="btn btn-primary"  onClick={(e) => makeApp(e, pet._id)}>{`Make a new appointment for ${pet.petName}`}</button>  
+             <button className="btn btn-primary"  onClick={(e) => makeApp(e, pet._id)}>{`Make a new appointment for ${pet.petName}`}</button>
             </div>
             )}
         else {
@@ -58,7 +62,7 @@ return (
             </div>
             )}
      })}
-    </div>              
-   </div> 
+    </div>
+   </div>
 )
 }
