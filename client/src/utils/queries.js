@@ -46,6 +46,12 @@ query getPet ($petID: ID!) {
     breed
     gender
     weight
+    owner {
+      _id
+      firstName
+      lastName
+      email
+    }
    }
 }
 `

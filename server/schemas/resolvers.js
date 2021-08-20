@@ -31,7 +31,7 @@ const resolvers = {
       return await PetType.find({});
     },
     getAllAppointmentsByDate: async (parent, {date}) => {
-      return await Appointment.find({date: date});
+      return await Appointment.find({date: { $gte: `${date} 00:00:00`, $lte: `${date} 23:59:59` }});
     },
     //I added a checkout: Please review this
     // getCheckout:async(parent,args, context) =>{
@@ -69,7 +69,7 @@ const resolvers = {
     //   });
     //   return { session: session.id };
     //  },
-    
+
     getAdmin: async (parent, args, context) => {
       console.log("User Information", context.admin);
       return await User.findById(context.admin._id);
@@ -98,8 +98,8 @@ const resolvers = {
     addPet: async (parent, args, context) => {
       return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, owner: context.user});
     },
-    createAppointment: async (parent, args, context) => {
-      return await Appointment.create({date: args.date, time: args.time, services: args.services, pet: context.pet});
+    createAppointment: async (parent, {date, time, services, pet}) => {
+      return await Appointment.create({date, time, services, pet});
     },
     deleteAppointment: async (parent, {appointmentID}) => {
       return await Appointment.deleteOne({_id: appointmentID});
