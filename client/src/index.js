@@ -4,6 +4,8 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './components/Header.css'
+import Amplify from 'aws-amplify';
+import config from './config';
 
 Amplify.configure({
   Auth: {
