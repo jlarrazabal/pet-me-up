@@ -55,7 +55,6 @@ const pets = [
     breed: 'Frech bulldog',
     gender: 'male',
     weight: '30',
-    owner: user
   }
 ]
 
@@ -77,6 +76,9 @@ db.once('open', async () => {
   await Pet.deleteMany();
 
   await User.insertMany(user);
+  //Get user id 
+  const testUser = await User.findOne({firstName: 'John'});
+  pets.map(item => item.owner = testUser.id);
   await PetType.insertMany(petTypes);
   await Service.insertMany(servicesData);
   await Appointment.insertMany(appointments);
