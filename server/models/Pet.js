@@ -30,8 +30,9 @@ const petSchema = new Schema({
     required: true
   },
   owner: {
-    type: UserModel.schema,
-    required: true
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "User"
   }
 });
 

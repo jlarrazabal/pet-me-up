@@ -6,31 +6,6 @@ export const CREATE_APPOINTMENT = gql `
 mutation createAppointment($input: AppointmentInput!) {
   createAppointment(input: $input) {
     _id
-    date
-    time
-    services {
-      _id
-      name
-      price
-      description
-    }
-    pet {
-      _id
-      petName
-      birthday
-      petType {
-        petTypeName
-      }
-      breed
-      gender
-      weight
-      owner {
-        _id
-        firstName
-        lastName
-        email
-      }
-    }
   }
 }`;
 
@@ -59,4 +34,9 @@ mutation deleteService($serviceID: ID!) {
     price
     description
   }
+}`;
+
+export const APPOINTMENT_CHECKOUT = gql `
+mutation checkOut($appointmentID: ID!) {
+  checkOut(appointmentID: $appointmentID)
 }`;
