@@ -98,6 +98,7 @@ class LogIn extends Component {
             </div>
             <div className="field">
               <p className="control">
+                <a href="/register">Register</a> &nbsp;
                 <a href="/forgotpassword">Forgot password?</a>
               </p>
             </div>

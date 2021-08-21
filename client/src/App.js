@@ -10,6 +10,7 @@ import { setContext } from "@apollo/client/link/context";
 import { Auth } from 'aws-amplify';
 import Home from "./components/Home";
 import LogIn from './components/auth/LogIn';
+import LogOut from './components/auth/Logout';
 import UserRegister from './components/auth/Register';
 import Welcome from './components/auth/Welcome';
 import ForgotPassword from './components/auth/forgot-password';
@@ -82,13 +83,18 @@ class App extends Component {
         <Router>
           <div>
             {/* <StoreProvider> */}
-            <Header />
+            <Header auth={authProps}/>
             <Switch>
               <Route exact path="/" component={Home} />
               <Route
                 exact
                 path="/login"
                 render={(props) => <LogIn {...props} auth={authProps} />}
+              />
+               <Route
+                exact
+                path="/logout"
+                render={(props) => <LogOut {...props} auth={authProps} />}
               />
               <Route
                 exact
