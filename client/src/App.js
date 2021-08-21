@@ -16,6 +16,7 @@ import Pethistory from './components/Pethistory';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import AppointmentSummary from './components/AppointmentSummary';
+import Admin from './components/Admin';
 
 const httpLink = createHttpLink({
   uri: '/graphql',
@@ -49,6 +50,8 @@ function App() {
               <Route exact path="/pethistory" component={Pethistory}/>
               <Route path="/pethistory/:petID" component={Pethistory} />
               <Route path="/appointment-summary/:appointmentID" component={AppointmentSummary} />
+              {/* This route is to test the Admin page */}
+              <Route path="/admin" component={Admin} />
               <Route component={Home} />
             </Switch>
             <Footer/>

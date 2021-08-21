@@ -111,7 +111,7 @@ const typeDefs = gql`
     createAppointment(input: AppointmentInput): Appointment
     deleteAppointment(appointmentID: ID!): Appointment
     updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
-    createService(input: ServiceInput): Service
+    createService (input: ServiceInput): Service
     deleteService(serviceID: ID!): Service
   }
 `;
