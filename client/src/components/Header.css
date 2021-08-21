@@ -6,16 +6,24 @@
     margin-left: 1rem;
 }
 .servicesTop {
-    margin-top: 15rem ;
+    margin-top: 5rem;
+    align-content: center;
 }
 
 .acordion {
-    margin-left: 35%;
+    margin-left: 5%;
 }
 
+.centered { 
+    justify-content: center; 
+    margin-top: -2rem;
+}
 .icon {
     color: white;
     font-size: 2.3rem;
+}
+.btn-left {
+    margin-left: 40%
 }
 .containerStyle {
     align-self: center;
@@ -27,6 +35,7 @@
 
 .btn-margin {
     margin-top: 1rem;
+    margin-bottom: 10px;
 }
 
 

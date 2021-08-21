@@ -43,7 +43,7 @@ mutation deleteAppointment($appointmentID: ID!) {
 
 export const CREATE_SERVICE = gql `
 mutation createService($name: String!, $price: Int!, $description: String!) {
-  createService(name: $name, price: $price, description: $description) {
+  createService(input: {name: $name, price: $price, description: $description}) {
     _id
     name
     price
