@@ -20,6 +20,7 @@ const petData = useQuery(QUERY_GETPET,{
  variables : {petID: petID}
 });
 const pet = (petData && petData.data?.getPet) || null;
+console.log(pet);
 
 let history = useHistory();
 
@@ -47,7 +48,7 @@ return (
      {appointmentsList.map((appointment) => {
         if (appointmentsList.length===0) {
             return (
-            <div> 
+            <div>
              <h1>Your pet has never visited the vet :(</h1>
              <button className="btn btn-secondary"  onClick={(e) => makeApp(e, pet._id)}>{`Make a new appointment for ${pet.petName}`}</button>  
             </div>

@@ -1,0 +1,31 @@
+
+#Button1{
+    background-color:rgb(25, 25, 136);
+    width: 300px;
+    height: 40px;
+    text-align: center;
+    display: inline-block;
+    color: white; 
+
+    }
+
+    #Button2{
+        background-color:rgb(156, 21, 21);
+        width: 300px;
+        height: 40px;
+        text-align: center;
+        display: inline-block;
+        color: white; 
+        }
+
+    #appointmentsummary {
+        text-align: center;
+      }
+
+   .wrapper{
+    display: inline-block;
+    margin: 0 5px;
+    align-items: center;
+    display: flex;
+    justify-content: space-around;
+   }

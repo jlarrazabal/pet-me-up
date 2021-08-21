@@ -79,10 +79,37 @@ const typeDefs = gql`
     weight: Float!
   }
 
+  input AppointmentServiceInput {
+    _id: ID!
+    name: String!
+    price: Int!
+    description: String!
+  }
+
+  input AppointmentPetTypeInput {
+    _id: ID!
+    petTypeName: String!
+  }
+
+  input AppointmentOwnerInput {
+    _id: ID!
+    firstName: String!
+    lastName: String!
+    email: String!
+  }
+
+  input AppointmentPetInput {
+    _id: ID!
+    petName: String!
+    petType: AppointmentPetTypeInput
+    owner: AppointmentOwnerInput
+  }
+
   input AppointmentInput {
     date: String!
     time: Int!
-    services: [String]!
+    services: [AppointmentServiceInput]!
+    pet: AppointmentPetInput!
   }
 
   input ServiceInput {

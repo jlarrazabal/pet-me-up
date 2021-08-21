@@ -68,13 +68,19 @@ const [time, setTime] = useState(null);
 const [timeFormated, setTimeFormated] = useState(null);
 const [disableTimeBtn, setDisableTimeBtn] = useState(false);
 const [services, setServices] = useState([]);
-const [servicesPrices, setServicesPrices] = useState([0]);
+// const [servicesPrices, setServicesPrices] = useState([0]);
 const [disableServiceBtn, setDisableServiceBtn] = useState(false);
 const [blockedTimeBtn, setBlockedTimeBtn] = useState(timeBtnInitialState);
 const [appointmentSet, setAppointmentSet] = useState(false);
 const [createAppointment, {error}] = useMutation(CREATE_APPOINTMENT);
 
 const timeBlocks = [9,10,11,12,13,14,15,16,17,18,19,20];
+
+const petData = useQuery(QUERY_GETPET, {
+  variables: {petID: petID}
+});
+const pet = (petData && petData.data?.getPet) || null;
+// console.log("Pet Info", pet);
 
 const appointmentByDate = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
   variables: {date: date}
@@ -83,6 +89,7 @@ const appointments = (appointmentByDate && appointmentByDate.data?.getAllAppoint
 
 useEffect(()=> {
   if(appointments && !appointmentSet) {
+    console.log("Appointments Data:", appointments);
     setAppointmentSet(true);
     setBlockedTimeBtn(blockedTimeBtn.map(timeSlot => {
         if(appointments.includes(timeSlot.timeBlock)){
@@ -120,23 +127,20 @@ const selectTime = (index) => {
       return "06:00 PM";
     case 10:
       return "07:00 PM";
-    default:
+    case 11:
       return "08:00 PM";
+    default:
+      return null;
   }
 }
 
 useEffect(()=> {
   setTimeFormated(selectTime(parseInt(time)));
-  console.log(timeFormated);
+  // console.log(timeFormated);
 }, [time]);
 
 const servicesData = useQuery(QUERY_GET_SERVICES);
 const servicesArray = (servicesData && servicesData.data?.getServices) || [];
-
-const petData = useQuery(QUERY_GETPET, {
-  variables: {petID: petID}
-});
-const pet = (petData && petData.data?.getPet) || null;
 
 if(appointmentByDate.loading || servicesData.loading || petData.loading) {
  return <div>...Loading</div>;
@@ -148,20 +152,49 @@ const handleDateChange = (e) => {
 }
 
 const handleTimeChange = (e) => {
-  console.log("Time:", e.target.value);
+  // console.log("Time:", e.target.value);
   setTime(e.target.value);
   // setDisableTimeBtn(true);
 }
 
 const handleBookAppointment = async (e) => {
-  e.preventDefault();
+  const petInput = {
+    _id: pet._id,
+    petName: pet.petName,
+    petType: {
+      _id: pet.petType._id,
+      petTypeName: pet.petType.petTypeName
+    },
+    owner: {
+      _id: pet.owner._id,
+      firstName: pet.owner.firstName,
+      lastName: pet.owner.lastName,
+      email: pet.owner.email
+    }
+  };
+
+  const servicesInput = services.map(service => {
+    return {
+      _id: service._id,
+      name: service.name,
+      description: service.description,
+      price: service.price
+    }
+  });
+
+  const appointmentInput = {
+    date: date,
+    time: time,
+    services: servicesInput,
+    pet: petInput
+  }
+
+  console.log("AppointmentInput:",appointmentInput);
+
   try {
-    const newAppointment = await createAppointment({
-      date: date,
-      time: time,
-      services: services,
-      pet: pet[0]
-    });
+    const newAppointment = await createAppointment(appointmentInput);
+
+    console.log("New Appointment Info:", newAppointment);
 
     if(error) {
       console.log(error);
@@ -178,7 +211,6 @@ const handleReset = (e) => {
   setTime(null);
   setDisableTimeBtn(false);
   setServices([]);
-  setServicesPrices([0]);
   setDisableServiceBtn(false);
 }
 
@@ -194,15 +226,13 @@ const handleServiceChange = (serviceID) => {
 return (
   <div className="container container-fluid d-flex p-2 bd-highlight">
     <div className="container container-fluid center">
-      <h3>{pet.petName}'s Appointment</h3>
+      <h3 className="pet-appointment">{pet.petName}'s Appointment</h3>
       <div className="left">
         <ul>
+          <li>Owner: {`${pet.owner.firstName} ${pet.owner.lastName}`}</li>
           <li>Date: {date}</li>
           <li>Time: {timeFormated}</li>
-          <li>Services:<ul>{services.map(service => {return <li>Service: {service.name} - Price: ${service.price}</li>})}</ul></li>
-          <li>Total: ${services.reduce((total, item) => {
-            return total + item.price;
-          },0)}</li>
+          <li>Services:<ul>{services.map(service => {return <li key={service._id} className="service-li">{service.name} - ${service.price}</li>})}<li>{services.length ===0?null:`Total: $${services.reduce((total, item) => {return total + item.price;},0)}`}</li></ul></li>
         </ul>
       </div>
     </div>
