@@ -2,11 +2,21 @@
     margin-left: 5rem;
 };
 
-
+.firstDiv {
+    margin-left: 1rem;
+}
 .servicesTop {
     margin-top: 15rem ;
 }
 
+.acordion {
+    margin-left: 35%;
+}
+
+.icon {
+    color: white;
+    font-size: 2.3rem;
+}
 .containerStyle {
     align-self: center;
     align-content: center;
@@ -17,5 +27,6 @@
 
 .btn-margin {
     margin-top: 1rem;
-};
+}
+
 
