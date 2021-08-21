@@ -48,8 +48,9 @@ function App() {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/appointment/:petID" component={Appointment}/>
               <Route exact path="/pethistory" component={Pethistory}/>
-              <Route path="/pethistory/:petID" component={Pethistory} />
-              <Route path="/appointment-summary/:appointmentID" component={AppointmentSummary} />
+              <Route exact path="/pethistory/:petID" component={Pethistory} />
+              <Route exact path="/appointment-summary/:appointmentID" component={AppointmentSummary} />
+              <Route exact path="/checkout/:appointmentID" component={Pethistory} />
               {/* This route is to test the Admin page */}
               <Route path="/admin" component={Admin} />
               <Route component={Home} />

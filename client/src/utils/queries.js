@@ -41,17 +41,13 @@ query getPet ($petID: ID!) {
     petName
     birthday
     petType {
+      _id
       petTypeName
     }
     breed
     gender
     weight
-    owner {
-      _id
-      firstName
-      lastName
-      email
-    }
+    owner
    }
 }
 `
