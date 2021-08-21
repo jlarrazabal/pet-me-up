@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 // import ReactDOM from 'react-dom';
 import './Login.css';
+import babypets from '../assets/babypets.jpg'
+
 
 
 function UserLogin(){
@@ -64,20 +66,28 @@ function UserLogin(){
     setLastName('');
   };
   return(
-    <div>
-     <form>
-       <h1 className="header">login </h1>
+    <div id="container">
+      <form >
+        <div class="login" >
+        <h1 className="header">login </h1>
        <div classname=" "><h3>Email</h3><input className="credential-form-input" value={emailLogin} name="email" onchange={handleInputChange} type="emailLogin" placeholder="email"></input></div>
         <div className="form"><h3>Password</h3><input className="credential-form-input"  value={passwordLogin} name="passwordLogin" onChange={handleInputChange} type="password" placeholder="password"></input></div>
-      </form>
-      <form>
-     <h1> Register</h1>
-     <div className="form"><h3>First Name</h3><input className="credential-form-input" value={firstName} name="firstName" onchange={handleInputChange} type="firstName"placeholder="First Name" ></input></div>
-     <div className="form"><h3>Last Name</h3><input className="credential-form-input" value={lastName} name="firstLast" onchange={handleInputChange} type="firstLast" placeholder="Last Name"></input></div>
-     <div className="form"><h3>Email</h3><input className="credential-form-input" value={emailRegister} name="emailRegister" onchange={handleInputChange} type="firstLast" placeholder="email"></input></div>
-     <div className="form"><h3>Password</h3><input className="credential-form-input" value={passwordRegister} name="passwordRegister" onchange={handleInputChange} type="passwordRegister" placeholder="password"></input></div>
-     <button type="button" onClick={handleFormSubmit}>Submit</button>
+        </div>
+        <div class="register">
+        <h1> Register</h1>
+        <div className="form"><h3>First Name</h3><input className="credential-form-input" value={firstName} name="firstName" onchange={handleInputChange} type="firstName"placeholder="First Name" ></input></div>
+        <div className="form"><h3>Last Name</h3><input className="credential-form-input" value={lastName} name="firstLast" onchange={handleInputChange} type="firstLast" placeholder="Last Name"></input></div>
+        <div className="form"><h3>Email</h3><input className="credential-form-input" value={emailRegister} name="emailRegister" onchange={handleInputChange} type="firstLast" placeholder="email"></input></div>
+        <div className="form"><h3>Password</h3><input className="credential-form-input" value={passwordRegister} name="passwordRegister" onchange={handleInputChange} type="passwordRegister" placeholder="password"></input></div>
+        </div>
+     <div id="wrapper">
+     <button id="LoginButton" type="button" onClick={handleFormSubmit}>Login</button>
+     <button id="RegsButton" type="button" onClick={handleFormSubmit}>Register</button>
+     </div>
      </form>
+     <div  className="col-lg-6">
+    <img id="image" className="bd-placeholder-img rounded" src={babypets} width="900" height="600"></img>
+  </div>
      {errorMessage && (
         <div>
           <p className="error-text">{errorMessage}</p>

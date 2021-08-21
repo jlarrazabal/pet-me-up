@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet, Appointment, Service, PetType, Admin } = require('../models');
 const { signToken } = require('../utils/auth');
-const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require('stripe')('sk_test_51J4w5gDOaNKFFbdCi9dREMYKBip7M2gSfCQXLKqrR8nDJgzZivzhRxXoR3irDITDTAaFwsXkbnP2AW53tDfvjETJ00BwwqY8hk');
 
 const resolvers = {
   Query: {
@@ -13,7 +13,7 @@ const resolvers = {
       return await Pet.findById(petID);
     },
     getPets: async (parent, {ownerID}) => {
-      return await Pet.find({ownerID: ownerID});
+      return await Pet.find({ownerID: ownerID}).populate("owner");
     },
     getAppointment: async (parent, {appointmentID}) => {
       return await Appointment.findById(appointmentID);
@@ -33,43 +33,6 @@ const resolvers = {
     getAllAppointmentsByDate: async (parent, {date}) => {
       return await Appointment.find({date: { $gte: `${date} 00:00:00`, $lte: `${date} 23:59:59` }});
     },
-    //I added a checkout: Please review this
-    // getCheckout:async(parent,args, context) =>{
-    //   // const url = new URL(context.headers.referer).origin;
-    //   const order = new Order({services: args.services});
-    //   const line_items =[];
-
-    //   const {services} = await order.populate('services').execPopulate()
-
-    //   for (let i = 0; i < services.length; i++) {
-    //     const services = await stripe.services.create({
-    //       name: services[i].name,
-    //       description: services[i].description,
-    //       // images: [`${url}/images/${products[i].image}`]
-    //     });
-
-    //     const price = await stripe.prices.create({
-    //       product: product.id,
-    //       unit_amount: services[i].price * 100,
-    //       currency: 'usd',
-    //     });
-
-    //     line_items.push({
-    //       price: price.id,
-    //       quantity: 1
-    //     });
-    //   }
-
-    //   const session = await stripe.checkout.sessions.create({
-    //     payment_method_types: ['card'],
-    //     line_items,
-    //     mode: 'payment',
-    //     success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-    //     cancel_url: `${url}../component/canceled`
-    //   });
-    //   return { session: session.id };
-    //  },
-
     getAdmin: async (parent, args, context) => {
       console.log("User Information", context.admin);
       return await User.findById(context.admin._id);
@@ -98,7 +61,7 @@ const resolvers = {
     addPet: async (parent, args, context) => {
       return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, owner: context.user});
     },
-    createAppointment: async (parent, {date, time, services, pet}) => {
+    createAppointment: async (parent, {input: {date, time, services, pet}}) => {
       return await Appointment.create({date, time, services, pet});
     },
     deleteAppointment: async (parent, {appointmentID}) => {
@@ -107,11 +70,18 @@ const resolvers = {
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
       return await Appointment.findbyIdAndUpdate({_id: appointmentID, $set: {paymentID: paymentID}});
     },
-    createService: async (parent, args) => {
-      return await Service.create({name: args.name, price: args.price, description: args.description});
+    // createService: async (parent, args) => {
+    //   return await Service.create({name: args.name, price: args.price, description: args.description});
+    // },
+    createService: async (parent, {input: {name, price, description}}) => {
+      console.log(name, price, description)
+      return await Service.create({name: name, price: price, description: description});
     },
-    deleteService: async (parent, args) => {
-      return await Service.deleteOne({_id: args.serviceID});
+    // deleteService: async (parent, args) => {
+    //   return await Service.deleteOne({_id: args.serviceID});
+    // },
+    deleteService: async (parent, {serviceID}) => {
+      return await Service.deleteOne({_id: serviceID});
     },
     loginAdmin: async (parent, { email, password }) => {
       const admin = await Admin.findOne({ email: email});
@@ -126,6 +96,30 @@ const resolvers = {
       const token = signToken(admin);
 
       return {token, admin};
+    },
+    checkOut: async (parent, {appointmentID}) => {
+      const appointment = await Appointment.findById(appointmentID);
+      const prices = [];
+      for(let i=0; i < appointment.services.length; i++) {
+        const price = await stripe.prices.create({
+            unit_amount: parseInt(appointment.services[i].price)*100,
+            currency: 'usd',
+            product_data: {
+                name:appointment.services[i].name
+            },
+          });
+      prices.push({price: price.id, quantity:1});
+      }
+
+      const session = await stripe.checkout.sessions.create({
+      success_url: `http://localhost:3000/checkout/${appointmentID}`,
+      cancel_url: `http://localhost:3000/appointment-summary/${appointmentID}`,
+      payment_method_types: ['card'],
+      line_items: prices,
+      mode: 'payment',
+      });
+      await Appointment.findOneAndUpdate({_id: appointmentID}, {$set: {paymentID: session.id}});
+      return session.url;
     }
   }
 };

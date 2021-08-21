@@ -7,6 +7,7 @@ const typeDefs = gql`
     lastName: String!
     email: String!
     pets: [Pet]
+    password: String!
   }
 
   type Pet {
@@ -17,7 +18,7 @@ const typeDefs = gql`
     breed: String!
     gender: String!
     weight: Float!
-    owner: User!
+    owner: ID!
   }
 
   type Service {
@@ -96,13 +97,18 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
+    password: String!
   }
 
   input AppointmentPetInput {
     _id: ID!
     petName: String!
+    birthday: String!
     petType: AppointmentPetTypeInput
-    owner: AppointmentOwnerInput
+    breed: String!
+    gender: String!
+    weight: Float!
+    owner: ID!
   }
 
   input AppointmentInput {
@@ -138,8 +144,9 @@ const typeDefs = gql`
     createAppointment(input: AppointmentInput): Appointment
     deleteAppointment(appointmentID: ID!): Appointment
     updateAppointment(appointmentID: ID!, paymentID: String!): Appointment
-    createService(input: ServiceInput): Service
+    createService (input: ServiceInput): Service
     deleteService(serviceID: ID!): Service
+    checkOut(appointmentID: ID!): String!
   }
 `;
 
