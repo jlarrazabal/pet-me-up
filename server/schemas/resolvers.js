@@ -70,11 +70,18 @@ const resolvers = {
     updateAppointment: async (parent, {appointmentID, paymentID}) => {
       return await Appointment.findbyIdAndUpdate({_id: appointmentID, $set: {paymentID: paymentID}});
     },
-    createService: async (parent, args) => {
-      return await Service.create({name: args.name, price: args.price, description: args.description});
+    // createService: async (parent, args) => {
+    //   return await Service.create({name: args.name, price: args.price, description: args.description});
+    // },
+    createService: async (parent, {input: {name, price, description}}) => {
+      console.log(name, price, description)
+      return await Service.create({name: name, price: price, description: description});
     },
-    deleteService: async (parent, args) => {
-      return await Service.deleteOne({_id: args.serviceID});
+    // deleteService: async (parent, args) => {
+    //   return await Service.deleteOne({_id: args.serviceID});
+    // },
+    deleteService: async (parent, {serviceID}) => {
+      return await Service.deleteOne({_id: serviceID});
     },
     loginAdmin: async (parent, { email, password }) => {
       const admin = await Admin.findOne({ email: email});

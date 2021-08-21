@@ -59,7 +59,7 @@ export default function Home() {
     </button>
   </div>
 
-<div className="container marketing servicesTop">
+<div className="container marketing servicesTop text-center">
 <div className="row">
   <div className="col-lg-4">
     <img  className="bd-placeholder-img rounded-circle" src={grooming} width="140" height="140"></img>

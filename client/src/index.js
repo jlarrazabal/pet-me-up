@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './components/Header.css'
+import './components/footer.css'
 
 ReactDOM.render(
   <React.StrictMode>
