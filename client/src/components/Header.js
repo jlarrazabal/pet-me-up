@@ -13,13 +13,12 @@ const Header = (props) => {
                     <h1 className={"topText navbar-brand text-warning fs-1"}>Pet Me Up!</h1><span className={"fa fa-paw icon"}></span>
                     <div className={"navbar-nav collapse navbar-collapse justify-content-end"}>
                     <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/">Home</Link>
-                    <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/">Services</Link>
                     {authLink}
                     <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/dashboard">Dashboard</Link>
                     <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/appointment">Appointment</Link>
-                    </div> 
+                    </div>
                 </nav>
-            </div>     
+            </div>
     );
  };
 export default Header;
