@@ -46,8 +46,6 @@ handleSubmit = async event => {
                 email: email
             }
         });
-        console.log(signUpResponse);
-        //here we redirect with react 
         this.props.history.push("/welcome");
     }catch(error) {
         let err = null;
