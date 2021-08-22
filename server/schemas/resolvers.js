@@ -58,8 +58,8 @@ const resolvers = {
       const token = signToken(user);
       return {token, user};
     },
-    addPet: async (parent, args, context) => {
-      return await Pet.create({petName: args.petName, birthday: args.birthday, petType: args.petType, breed: args.breed, gender: args.gender, weight: args.weight, owner: context.user});
+    addPet: async (parent, {input: {petName, birthday, petType, breed, gender, weight}}, context) => {
+      return await Pet.create({petName, birthday, petType, breed, gender, weight});
     },
     createAppointment: async (parent, {input: {date, time, services, pet}}) => {
       return await Appointment.create({date, time, services, pet});
