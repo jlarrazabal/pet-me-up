@@ -6,7 +6,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    pets: [Pet]
+    pets: [Pet]!
     password: String!
   }
 
@@ -73,11 +73,12 @@ const typeDefs = gql`
 
   input RegisterPetInput {
     petName: String!
-    birthday: Int!
-    petType: String!
+    birthday: String!
+    petType: AppointmentPetTypeInput
     breed: String!
     gender: String!
     weight: Float!
+    owner: ID!
   }
 
   input AppointmentServiceInput {
