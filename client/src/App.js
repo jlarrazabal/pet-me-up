@@ -25,6 +25,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import AppointmentSummary from "./components/AppointmentSummary";
 import Admin from './components/Admin';
+import "./App.css";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -81,7 +82,8 @@ class App extends Component {
     return (
       <ApolloProvider client={client}>
         <Router>
-          <div>
+          <div className="page-container">
+            <div className="content-wrap">
             {/* <StoreProvider> */}
             <Header auth={authProps}/>
             <Switch>
@@ -153,7 +155,10 @@ class App extends Component {
               <Route path="/admin" component={Admin} />
               <Route component={Home} />
             </Switch>
-            <Footer />
+            </div>
+            <div className="footer">
+              <Footer/>
+            </div>
           </div>
         </Router>
       </ApolloProvider>
