@@ -1,19 +1,19 @@
 # Pet Me Up!
 
  ## Description:
- Professional Portfolio created using React
+Streamline application for new clients and former clients to check on the status of their pet, history, and create new appointments.
+
  This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
  
- <img src="./src/assets/"></img>
- <img src="./src/assets/"></img>
- <img src="./src/assets/"></img>
+ <img src="./src/homeTop/"></img>
  
-
  ## Table of Contents
 - [Installation](#Installation)
+- [Demo](#Demo)
 - [Contributing](#Contributing)
 - [Licenses](#Licenses)
 - [Questions](#Questions)
+
 
  ## Installation
 You can access this application using the following link: https://marlysco.github.io/React-Portfolio/
@@ -27,6 +27,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## Demo 
+https://drive.google.com/file/d/1SsFfZSQ-vZV0XIEn9F23qv7gee0pPz9n/view
 
  ## Contributing
  Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.Please make sure to update tests as appropriate."
