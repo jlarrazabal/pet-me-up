@@ -5,6 +5,8 @@ import { Auth } from "aws-amplify";
 
 class UserRegister extends Component {
     state = {
+        firstname:"",
+        lastname:"",
         username: "",
         email: "",
         password: "",
@@ -78,6 +80,32 @@ onInputChange = event => {
           <FormErrors formerrors={this.state.errors} />
 
           <form onSubmit={this.handleSubmit}>
+          <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="firstname"
+                  aria-describedby="firstNameHelp"
+                  placeholder="Enter Firstname"
+                  value={this.state.firstname}
+                  onChange={this.onInputChange}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="lastname"
+                  aria-describedby="lastNameHelp"
+                  placeholder="Enter Lastname"
+                  value={this.state.lastname}
+                  onChange={this.onInputChange}
+                />
+              </p>
+            </div>
             <div className="field">
               <p className="control">
                 <input 
