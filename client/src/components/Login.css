@@ -29,7 +29,7 @@ justify-content: flex-start;
 } 
 
 #RegsButton{
-     background-color:rgb(156, 21, 21);  
+     /* background-color:rgb(156, 21, 21);   */
      color: white;   
      width: 300px;
      height: 40px;
@@ -39,7 +39,7 @@ justify-content: flex-start;
 }
 
 #LoginButton{
-         background-color:rgb(25, 25, 136);  
+         /* background-color:rgb(25, 25, 136);   */
          color: white;   
          width: 300px;
          height: 40px;
