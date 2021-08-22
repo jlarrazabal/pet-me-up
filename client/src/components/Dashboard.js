@@ -19,8 +19,8 @@ const user = {
 
 const petList =[
    {
-      _id: 5,
-      petName: "Pistachio",
+      _id: "6121301529bc1c67c45b366c",
+      petName: "Daiquiri",
       petType: "Dog",
       birthday: "06/14/2020",
       breed: "Chihuahua",
@@ -82,7 +82,7 @@ return (
          <h1>Your Dashboard!</h1>
          <h1 className="text-warning">{`${user.firstName} ${user.lastName}`} </h1>
          <h5>{user.email}</h5>
-        </div>   
+        </div>
     </div>
     <div className={"container-fluid row"} id="petList">
     {petList.map((pet) => {
@@ -95,13 +95,11 @@ return (
          <h5>Weigth: {pet.weigth}</h5>
          <h5>Gender: {pet.gender}</h5>
          <button className={"btn btn-secondary col-8"}  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
-         <button className={"btn btn-success btn-margin col-9"}  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
+         <button className={"btn btn-success btn-margin col-9"}  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button>
          </div>
         )
     })}
     </div>
    </div>
-   ) 
+   )
 }
-
-
