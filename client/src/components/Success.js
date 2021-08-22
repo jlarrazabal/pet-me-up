@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { QUERY_GETAPPOINTMENTBYID } from '../../utils/queries';
+import { useHistory, useParams } from "react-router-dom";
+import { QUERY_GETAPPOINTMENTBYID } from '../utils/queries';
 import './summary.css';
 
-export default function AppointmentSummary() {
+export default function Success() {
     const { loading, appointmentData } = useQuery(QUERY_GETAPPOINTMENTBYID, {
         variables: {
-            appointmentID
+            // appointmentID
         }
     });
 
@@ -28,5 +29,3 @@ export default function AppointmentSummary() {
 
     )
 }
-
-export default Success;
