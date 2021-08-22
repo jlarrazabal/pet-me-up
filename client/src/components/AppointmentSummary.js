@@ -8,6 +8,7 @@ import './AppointmentSummary.css';
 
 export default function AppointmentSummary(){
 const {appointmentID} = useParams();
+// const appointmentID = "611dae335fe7331ad485d0a1",
 // const [date, setDate] = useState('');
 // const [time, setTime] = useState("");
 
@@ -47,8 +48,8 @@ const [paymentID, setPaymentID] = useState("");
             <div className="totalPrice"><h3>Total Price: ${services.reduce((total, item) => {return total + item.price},0)}</h3></div>
          </div>
          <div class="wrapper">
-         <div><button onClick={handleServicePayment} id="Button1" className="" type="button">Pay Online</button></div>
-         <div><button onClick={cancelAppointment} id="Button2" className="" type="button">Cancel</button></div>
+         <div><button className="btn btn-success" onClick={handleServicePayment} id="Button1" type="button">Pay Online</button></div>
+         <div><button onClick={cancelAppointment} id="Button2" className="btn btn-danger" type="button">Cancel</button></div>
          </div>
          </div>
           )
