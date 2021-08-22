@@ -4,6 +4,18 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './components/Header.css'
+import Amplify from 'aws-amplify';
+import config from './config';
+import './components/footer.css';
+
+Amplify.configure({
+  Auth: {
+    mandatorySignId: true,
+    region: config.cognito.REGION,
+    userPoolId: config.cognito.USER_POOL_ID,
+    userPoolWebClientId: config.cognito.APP_CLIENT_ID
+  }
+})
 
 ReactDOM.render(
   <React.StrictMode>

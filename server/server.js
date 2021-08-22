@@ -1,4 +1,3 @@
-const stripe = require('stripe')('sk_test_51J4w5gDOaNKFFbdCi9dREMYKBip7M2gSfCQXLKqrR8nDJgzZivzhRxXoR3irDITDTAaFwsXkbnP2AW53tDfvjETJ00BwwqY8hk');
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
@@ -27,27 +26,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
-// this is  stripe code
-const YOUR_DOMAIN = 'http://localhost:3000/checkout';
-app.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: [
-      'card',
-    ],
-    line_items: [
-      {
-        // TODO: replace this with the `price` of the product you want to sell
-        price: '{{PRICE_ID}}',
-        quantity: 1,
-      },
-    ],
-    mode: 'payment',
-    success_url: `${YOUR_DOMAIN}?success=true`,
-    cancel_url: `${YOUR_DOMAIN}?canceled=true`,
-  });
-  res.redirect(303, session.url)
-});
-
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/build/index.html'));
 });
@@ -58,4 +36,3 @@ db.once('open', () => {
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });
 });
-

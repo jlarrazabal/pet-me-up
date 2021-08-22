@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import { useHistory, useParams } from "react-router-dom";
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_GETAPPOINTMENTBYID,QUERY_GET_SERVICES  } from '../utils/queries';
-import { DELETE_APPOINTMENT } from '../utils/mutations';
+import { DELETE_APPOINTMENT, APPOINTMENT_CHECKOUT } from '../utils/mutations';
 import './AppointmentSummary.css';
 
 
@@ -20,13 +20,18 @@ const [paymentID, setPaymentID] = useState("");
      }
  } );
  const [deleteAppointment, {error}] = useMutation(DELETE_APPOINTMENT);
+ const [checkOut] = useMutation(APPOINTMENT_CHECKOUT);
  const servicesData = useQuery(QUERY_GET_SERVICES);
  const services = (servicesData && servicesData.data?.getServices) || [];
-  
+
  //event handlers
- const handleServicePayment = (e)=>{
-   setPaymentID({value: e.target.value});
-   e.preventDefault();
+ const handleServicePayment = async (e)=>{
+   const result = await checkOut({
+     variables: {
+       appointmentID
+     }
+   });
+   window.location.assign(result.data.checkOut);
  }
 
  const cancelAppointment = async (e)=>{
@@ -54,4 +59,3 @@ const [paymentID, setPaymentID] = useState("");
          </div>
           )
 };
-

@@ -94,8 +94,8 @@ return (
          <h5>Breed: {pet.breed}</h5>
          <h5>Weigth: {pet.weigth}</h5>
          <h5>Gender: {pet.gender}</h5>
-         <button className={"btn btn-secondary"}  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
-         <button className={"btn btn-secondary btn-margin"}  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
+         <button className={"btn btn-secondary col-8"}  onClick={(e) => getHistory(e, pet._id)}>{`See ${pet.petName} history`}</button>
+         <button className={"btn btn-success btn-margin col-9"}  onClick={(e) => makeApp(e, pet._id)}>{`Make appointment for ${pet.petName}`}</button> 
          </div>
         )
     })}

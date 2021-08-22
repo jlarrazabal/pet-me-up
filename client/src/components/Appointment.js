@@ -80,7 +80,7 @@ const petData = useQuery(QUERY_GETPET, {
   variables: {petID: petID}
 });
 const pet = (petData && petData.data?.getPet) || null;
-// console.log("Pet Info", pet);
+console.log("Pet Info", pet);
 
 const appointmentByDate = useQuery(QUERY_APPOINTMENTS_BY_DATE,{
   variables: {date: date}
@@ -158,22 +158,8 @@ const handleTimeChange = (e) => {
 }
 
 const handleBookAppointment = async (e) => {
-  const petInput = {
-    _id: pet._id,
-    petName: pet.petName,
-    petType: {
-      _id: pet.petType._id,
-      petTypeName: pet.petType.petTypeName
-    },
-    owner: {
-      _id: pet.owner._id,
-      firstName: pet.owner.firstName,
-      lastName: pet.owner.lastName,
-      email: pet.owner.email
-    }
-  };
 
-  const servicesInput = services.map(service => {
+    const servicesInput = services.map(service => {
     return {
       _id: service._id,
       name: service.name,
@@ -182,24 +168,38 @@ const handleBookAppointment = async (e) => {
     }
   });
 
-  const appointmentInput = {
-    date: date,
-    time: time,
-    services: servicesInput,
-    pet: petInput
-  }
-
-  console.log("AppointmentInput:",appointmentInput);
+  const petInput = {
+    _id: pet._id,
+    petName: pet.petName,
+    birthday: pet.birthday,
+    petType: {
+      _id: pet.petType._id,
+      petTypeName: pet.petType.petTypeName
+    },
+    breed: pet.breed,
+    gender: pet.gender,
+    weight: parseFloat(pet.weight),
+    owner: pet.owner
+  };
 
   try {
-    const newAppointment = await createAppointment(appointmentInput);
+    const newAppointment = await createAppointment({
+      variables: {
+        input: {
+          date: date,
+          time: parseInt(time),
+          services: servicesInput,
+          pet: petInput
+        }
+      }
+    });
 
     console.log("New Appointment Info:", newAppointment);
 
     if(error) {
       console.log(error);
     }
-    history.push(`/appointment-summary/${newAppointment._id}`);
+    history.push(`/appointment-summary/${newAppointment.data.createAppointment._id}`);
   } catch (err) {
     console.log(err);
   }
@@ -229,7 +229,7 @@ return (
       <h3 className="pet-appointment">{pet.petName}'s Appointment</h3>
       <div className="left">
         <ul>
-          <li>Owner: {`${pet.owner.firstName} ${pet.owner.lastName}`}</li>
+          {/*<li>Owner: {`${pet.owner.firstName} ${pet.owner.lastName}`}</li>*/}
           <li>Date: {date}</li>
           <li>Time: {timeFormated}</li>
           <li>Services:<ul>{services.map(service => {return <li key={service._id} className="service-li">{service.name} - ${service.price}</li>})}<li>{services.length ===0?null:`Total: $${services.reduce((total, item) => {return total + item.price;},0)}`}</li></ul></li>
