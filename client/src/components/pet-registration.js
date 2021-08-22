@@ -5,7 +5,7 @@ import { QUERY_GET_PET_TYPES } from '../utils/queries';
 import {ADD_PET} from '../utils/mutations';
 import './pet-registration.css';
 
-export default function PetRegistration() {
+export default function PetRegistration(props) {
     const [addPet, {error}] = useMutation(ADD_PET);
     const servicesData = useQuery(QUERY_GET_PET_TYPES);
     const petTypes = (servicesData && servicesData.data?.getPetTypes) || [];
@@ -30,7 +30,7 @@ export default function PetRegistration() {
                   breed: breed,
                   gender: gender,
                   weight: parseFloat(weight),
-                  owner: '6122895fd0a8a60aed75f06c' // Temporal value until I get the owner add done.
+                  owner: props.auth.ownerid // Temporal value until I get the owner add done.
                 }
             }
           };

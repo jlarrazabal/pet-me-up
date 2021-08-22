@@ -77,6 +77,9 @@ class App extends Component {
       user: this.state.user,
       setAuthStatus: this.setAuthStatus,
       setUser: this.setUser,
+      firstname: this.state.firstname,
+      lastname: this.state.lastname,
+      email: this.state.email
     };
 
     return (
@@ -129,7 +132,7 @@ class App extends Component {
               <Route
                 exact
                 path="/welcome"
-                render={(props) => <Welcome {...props} auth={authProps} />}
+                render={(props) => <Welcome {...props} auth={authProps}/>}
               />
               <Route
                 exact

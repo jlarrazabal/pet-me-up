@@ -74,7 +74,7 @@ const typeDefs = gql`
   input RegisterPetInput {
     petName: String!
     birthday: String!
-    petType: AppointmentPetTypeInput
+    petType: AppointmentPetTypeInput!
     breed: String!
     gender: String!
     weight: Float!

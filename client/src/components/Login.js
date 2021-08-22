@@ -81,8 +81,8 @@ function UserLogin(){
         <div className="form"><h3>Password</h3><input className="credential-form-input" value={passwordRegister} name="passwordRegister" onchange={handleInputChange} type="passwordRegister" placeholder="password"></input></div>
         </div>
      <div id="wrapper">
-     <button id="LoginButton" type="button" onClick={handleFormSubmit}>Login</button>
-     <button id="RegsButton" type="button" onClick={handleFormSubmit}>Register</button>
+     <button className="btn btn-secondary" id="LoginButton" type="button" onClick={handleFormSubmit}>Login</button>
+     <button className="btn btn-success" id="RegsButton" type="button" onClick={handleFormSubmit}>Register</button>
      </div>
      </form>
      <div  className="col-lg-6">
