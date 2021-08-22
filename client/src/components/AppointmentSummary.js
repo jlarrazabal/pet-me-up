@@ -8,6 +8,7 @@ import './AppointmentSummary.css';
 
 export default function AppointmentSummary(){
 const {appointmentID} = useParams();
+// const appointmentID = "611dae335fe7331ad485d0a1",
 // const [date, setDate] = useState('');
 // const [time, setTime] = useState("");
 

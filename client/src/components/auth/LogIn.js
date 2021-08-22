@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FormErrors from "../utils/form-errors";
 import Validate from "../utils/form-validation";
 import { Auth } from "aws-amplify";
+import babypets from '../../assets/babypets.jpg'
+import "../Header.css"
 
 class LogIn extends Component {
   state = {
@@ -62,12 +64,12 @@ class LogIn extends Component {
 
   render() {
     return (
-      <section className="section auth">
-        <div className="container">
-          <h1>Login</h1>
+      <section className="section auth text-center">
+        <div className="text-center">
+          <h1 className="loginTop">Login</h1>
           <FormErrors formerrors={this.state.errors} />
 
-          <form onSubmit={this.handleSubmit}>
+          <form className={"text-center"} onSubmit={this.handleSubmit}>
             <div className="field">
               <p className="control">
                 <input 
@@ -84,7 +86,7 @@ class LogIn extends Component {
             <div className="field">
               <p className="control has-icons-left">
                 <input 
-                  className="input" 
+                  className="input centeredLogin" 
                   type="password"
                   id="password"
                   placeholder="Password"
@@ -102,14 +104,15 @@ class LogIn extends Component {
                 <a href="/forgotpassword">Forgot password?</a>
               </p>
             </div>
-            <div className="field">
+            <div className="field container">
               <p className="control">
-                <button className="button is-success">
+                <button className="button is-success btn btn-success col-2">
                   Login
                 </button>
               </p>
             </div>
           </form>
+          <img  className={"img-fluid"} src={babypets} width="1000" height="1000"/>
         </div>
       </section>
     );

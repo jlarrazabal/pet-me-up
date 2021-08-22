@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FormErrors from "../utils/form-errors";
 import Validate from "../utils/form-validation";
 import { Auth } from "aws-amplify";
+import welcome from '../../assets/welcome.png'
+import "../Header.css"
 
 class UserRegister extends Component {
     state = {
@@ -73,8 +75,8 @@ onInputChange = event => {
   render() {
     return (
       <section className="section auth">
-        <div className="container">
-          <h1>Register</h1>
+        <div className="container-fluid text-center">
+          <h1 className="loginTop">Register</h1>
           <FormErrors formerrors={this.state.errors} />
 
           <form onSubmit={this.handleSubmit}>
@@ -92,9 +94,9 @@ onInputChange = event => {
               </p>
             </div>
             <div className="field">
-              <p className="control has-icons-left has-icons-right">
+              <p className="control has-icons-left has-icons-right text-center">
                 <input 
-                  className="input" 
+                  className="input centeredLogin" 
                   type="email"
                   id="email"
                   aria-describedby="emailHelp"
@@ -110,7 +112,7 @@ onInputChange = event => {
             <div className="field">
               <p className="control has-icons-left">
                 <input 
-                  className="input" 
+                  className="input centeredLogin" 
                   type="password"
                   id="password"
                   placeholder="Password"
@@ -125,7 +127,7 @@ onInputChange = event => {
             <div className="field">
               <p className="control has-icons-left">
                 <input 
-                  className="input" 
+                  className="input centeredLogin" 
                   type="password"
                   id="confirmpassword"
                   placeholder="Confirm password"
@@ -142,14 +144,15 @@ onInputChange = event => {
                 <a href="/forgotpassword">Forgot password?</a>
               </p>
             </div>
-            <div className="field">
+            <div className="field container">
               <p className="control">
-                <button className="button is-success">
+                <button className="button is-success btn btn-success col-2">
                   Register
                 </button>
               </p>
             </div>
           </form>
+          <img  className={"img-fluid"} src={welcome} width="900" height="900"/>
         </div>
       </section>
     );
