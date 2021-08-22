@@ -112,7 +112,7 @@ const resolvers = {
       }
 
       const session = await stripe.checkout.sessions.create({
-      success_url: `http://localhost:3000/checkout/${appointmentID}`,
+      success_url: `http://localhost:3000/success/${appointmentID}`,
       cancel_url: `http://localhost:3000/appointment-summary/${appointmentID}`,
       payment_method_types: ['card'],
       line_items: prices,
