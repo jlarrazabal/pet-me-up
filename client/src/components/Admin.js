@@ -80,10 +80,10 @@ const deleteSrv = async (serviceID, serviceName) => {
  <div className="container-fluid text-center servicesTop">
     <h1>{messageToUser}</h1>
     <div className={"col-12 container-fluid block row"}>
+    <h2 className={"col-12 text-center"}>Available services</h2>
     {servicesList.length?servicesList.map((service) => {
       return (
       <div className={"containerStyle col-3 topText"}  key={service._id}>
-       <h2 className={"col-12 text-center"}>Available services</h2>
        <h2>{service.name}</h2>
        <h3>{service.description}</h3>
        <button className={"btn btn-danger col-5"} onClick={() => deleteSrv(service._id, service.name)}>Delete</button>  
@@ -93,8 +93,8 @@ const deleteSrv = async (serviceID, serviceName) => {
       <img  className={"img-fluid topText"} src={noservices} width="200" height="200"/>
       <h3>Oooops! You don't have any services created, please add some services in the link below</h3></div>}  
     </div>
-    <div class="accordion accordion-flush col-4 text-center acordion" id="accordionFlushExample">
-    <div class="accordion-item">
+    <div class="accordion centeredAdd accordion-flush col-4 text-center acordion" id="accordionFlushExample">
+    <div class="accordion-item text center">
     <h1 class="accordion-header" id="flush-headingOne">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
       <h3 className="text-success text-center">Add a service here!</h3>
