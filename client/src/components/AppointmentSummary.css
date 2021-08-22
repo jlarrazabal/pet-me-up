@@ -6,6 +6,8 @@
     text-align: center;
     display: inline-block;
     color: white; 
+    position:relative;
+    top:300px;
 
     }
 
@@ -16,10 +18,14 @@
         text-align: center;
         display: inline-block;
         color: white; 
+        position:relative;
+        top:300px;
         }
 
     #appointmentsummary {
         text-align: center;
+        position:relative;
+        top:115px;
       }
 
    .wrapper{
