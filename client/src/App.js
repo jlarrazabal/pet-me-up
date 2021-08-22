@@ -144,15 +144,16 @@ class App extends Component {
                 render={(props) => <UserRegister {...props} auth={authProps} />}
               />
               <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/appointment" component={Dashboard} />
               <Route exact path="/appointment/:petID" component={Appointment} />
               <Route exact path="/pethistory" component={Pethistory} />
-              <Route path="/pethistory/:petID" component={Pethistory} />
+              <Route exact path="/pethistory/:petID" component={Pethistory} />
               <Route
-                path="/appointment-summary/:appointmentID"
+                exact path="/appointment-summary/:appointmentID"
                 component={AppointmentSummary}
               />
               {/* This route is to test the Admin page */}
-              <Route path="/admin" component={Admin} />
+              <Route exact path="/admin" component={Admin} />
               <Route component={Home} />
             </Switch>
             </div>
