@@ -43,7 +43,7 @@ mutation checkOut($appointmentID: ID!) {
 
 export const DELETE_PET = gql `
 mutation deletePet($petID: ID!) {
-  deleteService(petID: $petID) {
+  deletePet(petID: $petID) {
     _id
     petName
     birthday
