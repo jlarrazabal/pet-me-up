@@ -5,7 +5,7 @@ Streamline application for new clients and former clients to check on the status
 
  This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
  
- <img src="./src/homeTop/"></img>
+ <img src="./src/homeTop.jpg/"></img>
  
  ## Table of Contents
 - [Installation](#Installation)
@@ -16,7 +16,7 @@ Streamline application for new clients and former clients to check on the status
 
 
  ## Installation
-You can access this application using the following link: https://marlysco.github.io/React-Portfolio/
+You can access this application using the following link: 
 
 This app has been deployed using Heroku.
 
@@ -40,8 +40,12 @@ https://drive.google.com/file/d/1SsFfZSQ-vZV0XIEn9F23qv7gee0pPz9n/view
  ## Questions
  Please contact us:
  mayraorlando2014@gmail.com | mayraorlando
+ 
  javier.larrazabal1988@gmail.com | 	jlarrazabal
+ 
  surer.priscilla@gmail.com | ninjaKittyCoder
+ 
  moralesandrew47@gmail.com | andyymor
+ 
  marlysco94@gmail.com | marlysco
 
