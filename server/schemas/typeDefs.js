@@ -147,6 +147,7 @@ const typeDefs = gql`
     createService (input: ServiceInput): Service
     deleteService(serviceID: ID!): Service
     checkOut(appointmentID: ID!): String!
+    deletePet(petID: ID!): Pet
   }
 `;
 
