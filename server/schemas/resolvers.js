@@ -83,6 +83,9 @@ const resolvers = {
     deleteService: async (parent, {serviceID}) => {
       return await Service.deleteOne({_id: serviceID});
     },
+    deletePet: async (parent, {petID}) => {
+      return await Pet.deleteOne({_id: petID});
+    },
     loginAdmin: async (parent, { email, password }) => {
       const admin = await Admin.findOne({ email: email});
       if(!admin) {
