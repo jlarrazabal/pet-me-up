@@ -5,7 +5,7 @@ Streamline application for new clients and former clients to check on the status
 
  This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
  
- <img src="./src/homeTop/"></img>
+ <img src="./src/homeTop.jpg/"></img>
  
  ## Table of Contents
 - [Installation](#Installation)
