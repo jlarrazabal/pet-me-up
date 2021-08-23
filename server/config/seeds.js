@@ -11,7 +11,6 @@ const user = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'doe@test.com',
-  password: 'test12345'
 }
 
 const servicesData = [

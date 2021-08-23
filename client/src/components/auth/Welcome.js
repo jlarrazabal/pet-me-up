@@ -6,7 +6,7 @@ export default function Welcome(props) {
   const [addUser, {error}] = useMutation(CREATE_USER);
   async function saveOwner(data){
     try {
-      const newOwner = await addUser({firstname: data.firstname, lastname: data.lastname, email:data.email});
+      const newOwner = await addUser({firstname: data.firstname, lastname: data.lastname, email:data.email, password:""});
   
       console.log("Owner was saved!", newOwner);
   

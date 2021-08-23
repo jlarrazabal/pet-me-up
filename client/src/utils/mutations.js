@@ -3,12 +3,11 @@ import {
 } from '@apollo/client';
 
 export const CREATE_USER = gql `
-mutation addUser($input: RegisterUserInput) {
+mutation addUser($input: RegisterUserInput!) {
   addUser(input: $input) {
     firstName
     lastName
     email
-    password
   }
 }`;
 
