@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 const Header = (props) => {
  const location = useLocation();
  //<Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/register">Register</Link> :
- const authLink = (props.auth.isAuthenticated === true ) ?
+ const authLink = (props.auth.isAuthenticated === false ) ?
  <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/login">Login</Link> :
  <Link className={location.pathname === '/' ? "nav-link active" : "nav-link"} to ="/logout">Logout</Link> ;
     return (
