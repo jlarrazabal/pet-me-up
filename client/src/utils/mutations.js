@@ -40,3 +40,18 @@ export const APPOINTMENT_CHECKOUT = gql `
 mutation checkOut($appointmentID: ID!) {
   checkOut(appointmentID: $appointmentID)
 }`;
+
+export const DELETE_PET = gql `
+mutation deletePet($petID: ID!) {
+  deletePet(petID: $petID) {
+    _id
+    petName
+    birthday
+    description
+    petType
+    breed
+    gender
+    weight
+    owner
+  }
+}`;

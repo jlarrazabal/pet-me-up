@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import FormErrors from "../utils/form-errors";
 import Validate from "../utils/form-validation";
 import { Auth } from 'aws-amplify';
+import forgot from '../../assets/forgot.jpg'
+import "../Header.css"
 
 class ForgotPassword extends Component {
   state = {
@@ -53,19 +55,19 @@ class ForgotPassword extends Component {
     return (
       <section className="section auth">
         <div className="container">
-          <h1>Forgot your password?</h1>
-          <p>
+          <h1 className="text-center loginTop">Forgot your password?</h1>
+          <p className="text-center">
             Please enter the email address associated with your account and we'll
             email you a password reset link.
           </p>
           <FormErrors formerrors={this.state.errors} />
 
           <form onSubmit={this.forgotPasswordHandler}>
-            <div className="field">
+            <div className="field text-center">
               <p className="control has-icons-left has-icons-right">
                 <input
                   type="email"
-                  className="input"
+                  className="input centeredLogin"
                   id="email"
                   aria-describedby="emailHelp"
                   placeholder="Enter email"
@@ -77,19 +79,20 @@ class ForgotPassword extends Component {
                 </span>
               </p>
             </div>
-            <div className="field">
-              <p className="control">
-                <a href="/forgotpassword">Forgot password?</a>
+            <div className="field text-center">
+              <p className="control text-center">
+                <a className="text-center" href="/forgotpassword">Forgot password?</a>
               </p>
             </div>
-            <div className="field">
+            <div className="field text-center">
               <p className="control">
-                <button className="button is-success">
+                <button className="button is-success btn btn-success col-2">
                   Submit
                 </button>
               </p>
             </div>
           </form>
+          {/* <img  className={"img-fluid"} src={forgot} width="800" height="800"/> */}
         </div>
       </section>
     );

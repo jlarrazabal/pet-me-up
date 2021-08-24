@@ -83,6 +83,9 @@ const resolvers = {
     deleteService: async (parent, {serviceID}) => {
       return await Service.deleteOne({_id: serviceID});
     },
+    deletePet: async (parent, {petID}) => {
+      return await Pet.deleteOne({_id: petID});
+    },
     loginAdmin: async (parent, { email, password }) => {
       const admin = await Admin.findOne({ email: email});
       if(!admin) {
@@ -112,7 +115,7 @@ const resolvers = {
       }
 
       const session = await stripe.checkout.sessions.create({
-      success_url: `http://localhost:3000/checkout/${appointmentID}`,
+      success_url: `http://localhost:3000/success/${appointmentID}`,
       cancel_url: `http://localhost:3000/appointment-summary/${appointmentID}`,
       payment_method_types: ['card'],
       line_items: prices,
