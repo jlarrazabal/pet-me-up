@@ -69,7 +69,10 @@ mutation deletePet($petID: ID!) {
     petName
     birthday
     description
-    petType
+    petType {
+      _id
+      petTypeName
+    }
     breed
     gender
     weight
