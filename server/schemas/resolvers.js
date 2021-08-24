@@ -2,7 +2,7 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, Pet, Appointment, Service, PetType, Admin } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')(process.env.REACT_APP_STRIPE_KEY);
-console.log(process.env.REACT_APP_STRIPE_KEY);
+// console.log(process.env.REACT_APP_STRIPE_KEY);
 const resolvers = {
   Query: {
     getUser: async (parent, args, context) => {
