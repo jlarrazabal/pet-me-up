@@ -19,6 +19,7 @@
   "dependencies": {
     "aws-amplify": "^4.2.4",
     "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "react-router-dom": "^5.2.0"
   }
