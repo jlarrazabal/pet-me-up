@@ -2,30 +2,22 @@ import React, { useState } from 'react';
 import { useQuery } from '@apollo/client';
 import { useHistory, useParams } from "react-router-dom";
 import { QUERY_GETAPPOINTMENTBYID } from '../utils/queries';
-import './summary.css';
+import './Success.css'
 
 export default function Success() {
-    const { loading, appointmentData } = useQuery(QUERY_GETAPPOINTMENTBYID, {
-        variables: {
-            // appointmentID
-        }
-    });
+    const {appointmentID} = useParams();
+    const history = useHistory();
+    const handleClick = (e) => {
+      history.push(`/dashboard`);
+    };
 
     return (
-        <div>
-            <h1 className="appointmentTitle">Your appointment is confirmed! </h1>
-
-            <div classname="Details "><h2 className='summary-form-input'>Appointment Details</h2></div>
-
-            <div className="date"><h3>Date:</h3>
-            </div>
-            <div className="time"><h3>Time:</h3></div>
-            <div classname="summary "><h2 className='summary-form-input'>Services: List of service(s) including price</h2></div>
-            <div className="totalPrice"><h3>Total Price:</h3></div>
-
-            <div><button className='Dashboard' type="button">Dashboard</button></div>
+        <div className="flex-box">
+          <div className="confirmation">
+            <h1 className="appointmentTitle">Your appointment is confirmed!</h1>
+            <h3>Confirmation Code: {appointmentID}</h3>
+            <button className='btn btn-lg btn-primary success-page-btn' type="button" onClick={handleClick}>Go to your Dashboard</button>
+          </div>
         </div>
-
-
-    )
+    );
 }

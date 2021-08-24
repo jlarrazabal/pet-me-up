@@ -5,11 +5,15 @@
 .firstDiv {
     margin-left: 1rem;
 }
+.loginTop {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    align-content: center;
+}
 .servicesTop {
     margin-top: 5rem;
     align-content: center;
 }
-
 .acordion {
     margin-left: 5%;
 }
@@ -18,6 +22,16 @@
     justify-content: center; 
     margin-top: -2rem;
 }
+
+.centeredAdd {
+    margin-left: 35rem;
+}
+
+.centeredLogin { 
+    margin-right: -1.5rem;
+    margin-top: -15rem;
+}
+
 .icon {
     color: white;
     font-size: 2.3rem;

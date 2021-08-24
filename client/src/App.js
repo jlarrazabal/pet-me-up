@@ -20,6 +20,7 @@ import ChangePasswordConfirm from './components/auth/change-password-confirm';
 import Dashboard from "./components/Dashboard";
 import PetRegistration from './components/pet-registration';
 import Appointment from "./components/Appointment";
+import Success from "./components/Success";
 import Pethistory from "./components/Pethistory";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
@@ -155,6 +156,7 @@ class App extends Component {
                 exact path="/appointment-summary/:appointmentID"
                 component={AppointmentSummary}
               />
+              <Route exact path="/success/:appointmentID" component={Success} />
               {/* This route is to test the Admin page */}
               <Route exact path="/admin" component={Admin} />
               <Route component={Home} />

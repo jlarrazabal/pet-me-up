@@ -59,6 +59,16 @@ mutation addPet($input: RegisterPetInput!) {
       _id
       petTypeName
     }
+    `
+export const DELETE_PET = gql `
+
+mutation deletePet($petID: ID!) {
+  deletePet(petID: $petID) {
+    _id
+    petName
+    birthday
+    description
+    petType
     breed
     gender
     weight
