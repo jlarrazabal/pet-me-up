@@ -16,11 +16,11 @@ Streamline application for new clients and former clients to check on the status
 
 
  ## Installation
-You can access this application using the following link: 
+You can access this application using the following link: https://protected-reef-25788.herokuapp.com/
 
 This app has been deployed using Heroku.
 
-### `npm start`
+### `npm run develop`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
