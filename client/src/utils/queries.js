@@ -11,7 +11,7 @@ export const QUERY_GETUSER = gql`
   }
 `
 
-export const QUERY_GETPETSBYOWNER = gql `
+export const QUERY_GETPETSBYOWNER = gql`
 query getPets ($ownerID: ID!) {
   getPets(ownerID: $ownerID) {
     _id
@@ -26,7 +26,7 @@ query getPets ($ownerID: ID!) {
    }
 }
 `
-export const QUERY_GETPETAPP = gql `
+export const QUERY_GETPETAPP = gql`
 query getAllPetAppointments ($petID: ID!) {
   getAllPetAppointments (petID: $petID) {
     date
@@ -34,7 +34,7 @@ query getAllPetAppointments ($petID: ID!) {
   }
 }`
 
-export const QUERY_GETPET = gql `
+export const QUERY_GETPET = gql`
 query getPet ($petID: ID!) {
   getPet (petID: $petID) {
     _id
@@ -73,7 +73,7 @@ query getAllAppointmentsByDate ($date: String!) {
 }
 `
 
-export const QUERY_GETAPPOINTMENTBYID = gql `
+export const QUERY_GETAPPOINTMENTBYID = gql`
 query getAppointment ($appointmentID: ID!) {
   getAppointment (appointmentID: $appointmentID) {
     _id
@@ -98,5 +98,13 @@ query getAppointment ($appointmentID: ID!) {
     }
     paymentID
    }
+}
+`
+export const QUERY_GET_PET_TYPES = gql`
+query getPetTypes {
+  getPetTypes {
+    _id
+    petTypeName
+  }
 }
 `

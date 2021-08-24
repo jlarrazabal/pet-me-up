@@ -6,7 +6,7 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    pets: [Pet]
+    pets: [Pet]!
     password: String!
   }
 
@@ -68,7 +68,6 @@ const typeDefs = gql`
     firstName: String!
     lastName: String!
     email: String!
-    password: String!
   }
 
   input RegisterPetInput {
@@ -78,6 +77,7 @@ const typeDefs = gql`
     breed: String!
     gender: String!
     weight: Float!
+    owner: ID!
   }
 
   input AppointmentServiceInput {
@@ -137,7 +137,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(input: RegisterUserInput): AuthUser
+    addUser(input: RegisterUserInput): User
     loginUser(input: LoginInput): AuthUser
     loginAdmin(input: LoginInput): AuthAdmin
     addPet(input: RegisterPetInput): Pet

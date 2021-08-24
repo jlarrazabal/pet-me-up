@@ -7,6 +7,8 @@ import "../Header.css"
 
 class UserRegister extends Component {
     state = {
+        firstname:"",
+        lastname:"",
         username: "",
         email: "",
         password: "",
@@ -48,8 +50,10 @@ handleSubmit = async event => {
                 email: email
             }
         });
-        console.log(signUpResponse);
-        //here we redirect with react 
+        this.props.auth.firstname = this.state.firstname;
+        this.props.auth.lastname = this.state.lastname;
+        this.props.auth.email = this.state.email;
+        
         this.props.history.push("/welcome");
     }catch(error) {
         let err = null;
@@ -80,6 +84,32 @@ onInputChange = event => {
           <FormErrors formerrors={this.state.errors} />
 
           <form onSubmit={this.handleSubmit}>
+          <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="firstname"
+                  aria-describedby="firstNameHelp"
+                  placeholder="Enter Firstname"
+                  value={this.state.firstname}
+                  onChange={this.onInputChange}
+                />
+              </p>
+            </div>
+            <div className="field">
+              <p className="control">
+                <input 
+                  className="input" 
+                  type="text"
+                  id="lastname"
+                  aria-describedby="lastNameHelp"
+                  placeholder="Enter Lastname"
+                  value={this.state.lastname}
+                  onChange={this.onInputChange}
+                />
+              </p>
+            </div>
             <div className="field">
               <p className="control">
                 <input 

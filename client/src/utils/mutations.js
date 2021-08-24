@@ -2,8 +2,17 @@ import {
   gql
 } from '@apollo/client';
 
+export const CREATE_USER = gql `
+mutation addUser($input: RegisterUserInput!) {
+  addUser(input: $input) {
+    firstName
+    lastName
+    email
+  }
+}`;
+
 export const CREATE_APPOINTMENT = gql `
-mutation createAppointment($input: AppointmentInput!) {
+mutation createAppointment($input: PetInput!) {
   createAppointment(input: $input) {
     _id
   }
@@ -41,7 +50,18 @@ mutation checkOut($appointmentID: ID!) {
   checkOut(appointmentID: $appointmentID)
 }`;
 
+export const ADD_PET = gql `
+mutation addPet($input: RegisterPetInput!) {
+  addPet(input: $input) {
+    petName
+    birthday
+    petType {
+      _id
+      petTypeName
+    }
+    `
 export const DELETE_PET = gql `
+
 mutation deletePet($petID: ID!) {
   deletePet(petID: $petID) {
     _id
